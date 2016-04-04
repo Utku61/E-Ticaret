@@ -19,7 +19,7 @@ public class Yetki implements Serializable {
 	private String yetkiAdi;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "yetki", cascade = CascadeType.ALL)
-	private List<Musteriler> musterilers;
+	private List<Musteri> musteris;
 
 	public Yetki() {
 		super();

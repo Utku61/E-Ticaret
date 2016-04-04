@@ -7,8 +7,8 @@ import java.util.List;
 
 
 @Entity
-@Table(name="Musteriler")
-public class Musteriler implements Serializable {
+@Table(name="Musteri")
+public class Musteri implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -49,7 +49,7 @@ public class Musteriler implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="SehirID")
-	private Sehirler sehirler;
+	private Sehir sehir;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="yetkiNo")
@@ -58,7 +58,7 @@ public class Musteriler implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="musteriler", cascade = CascadeType.ALL)
 	private List<Siparis> siparis;
 
-	public Musteriler() {
+	public Musteri() {
 	}
 
 	public int getMusteriID() {
@@ -149,12 +149,12 @@ public class Musteriler implements Serializable {
 		this.telefonNo = telefonNo;
 	}
 
-	public Sehirler getSehirler() {
-		return this.sehirler;
+	public Sehir getSehirler() {
+		return this.sehir;
 	}
 
-	public void setSehirler(Sehirler sehirler) {
-		this.sehirler = sehirler;
+	public void setSehirler(Sehir sehir) {
+		this.sehir = sehir;
 	}
 
 	public Yetki getYetki() {
@@ -177,7 +177,7 @@ public class Musteriler implements Serializable {
 	public String toString() {
 		return "Musteriler [musteriID=" + musteriID + ", ad=" + ad + ", adres=" + adres + ", cepNo=" + cepNo
 				+ ", eposta=" + eposta + ", IPAdress=" + IPAdress + ", kayitTarihi=" + kayitTarihi + ", parola="
-				+ parola + ", soyad=" + soyad + ", tcno=" + tcno + ", telefonNo=" + telefonNo + ", sehirler=" + sehirler
+				+ parola + ", soyad=" + soyad + ", tcno=" + tcno + ", telefonNo=" + telefonNo + ", sehir=" + sehir
 				+ ", yetki=" + yetki + ", siparis=" + siparis + "]";
 	}
 }

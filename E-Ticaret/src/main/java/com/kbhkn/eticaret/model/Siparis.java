@@ -39,7 +39,7 @@ public class Siparis implements Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="MusteriID", nullable=false)
-	private Musteriler musteriler;
+	private Musteri musteri;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="OdemeSecenekID", nullable=false)
@@ -112,12 +112,12 @@ public class Siparis implements Serializable {
 		this.kargo = kargo;
 	}
 
-	public Musteriler getMusteriler() {
-		return this.musteriler;
+	public Musteri getMusteriler() {
+		return this.musteri;
 	}
 
-	public void setMusteriler(Musteriler musteriler) {
-		this.musteriler = musteriler;
+	public void setMusteriler(Musteri musteri) {
+		this.musteri = musteri;
 	}
 
 	public OdemeSecenek getOdemeSecenek() {
@@ -148,7 +148,7 @@ public class Siparis implements Serializable {
 	public String toString() {
 		return "Siparis [siparisID=" + siparisID + ", adet=" + adet + ", fiyat=" + fiyat + ", teslimEdilecekAdres="
 				+ teslimEdilecekAdres + ", teslimTarihi=" + teslimTarihi + ", verilisTarihi=" + verilisTarihi
-				+ ", kargo=" + kargo + ", musteriler=" + musteriler + ", odemeSecenek=" + odemeSecenek
+				+ ", kargo=" + kargo + ", musteri=" + musteri + ", odemeSecenek=" + odemeSecenek
 				+ ", siparisDurum=" + siparisDurum + ", urun=" + urun + "]";
 	}
 }

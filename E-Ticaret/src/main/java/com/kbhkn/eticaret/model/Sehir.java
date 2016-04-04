@@ -6,8 +6,8 @@ import java.util.List;
 
 
 @Entity
-@Table(name="Sehirler")
-public class Sehirler implements Serializable {
+@Table(name="Sehir")
+public class Sehir implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -19,9 +19,9 @@ public class Sehirler implements Serializable {
 	private String sehirAdi;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="sehirler", cascade = CascadeType.ALL)
-	private List<Musteriler> musterilers;
+	private List<Musteri> musterilers;
 
-	public Sehirler() {
+	public Sehir() {
 	}
 
 	public int getSehirID() {
@@ -40,11 +40,11 @@ public class Sehirler implements Serializable {
 		this.sehirAdi = sehirAdi;
 	}
 
-	public List<Musteriler> getMusterilers() {
+	public List<Musteri> getMusterilers() {
 		return this.musterilers;
 	}
 
-	public void setMusterilers(List<Musteriler> musterilers) {
+	public void setMusterilers(List<Musteri> musterilers) {
 		this.musterilers = musterilers;
 	}
 
