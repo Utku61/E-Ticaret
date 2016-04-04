@@ -18,7 +18,7 @@ public class Sehir implements Serializable {
 	@Column(name="SehirAdi", nullable=false, length=45)
 	private String sehirAdi;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="sehirler", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="sehir", cascade = CascadeType.ALL)
 	private List<Musteri> musterilers;
 
 	public Sehir() {

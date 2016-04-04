@@ -24,6 +24,11 @@ public class Yetki implements Serializable {
 	public Yetki() {
 		super();
 	}
+	
+	public Yetki(String yetkiAdi) {
+		super();
+		this.yetkiAdi = yetkiAdi;
+	}
 
 	public int getYetkiNo() {
 		return this.yetkiNo;

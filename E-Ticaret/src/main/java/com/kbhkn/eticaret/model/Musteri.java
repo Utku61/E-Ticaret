@@ -55,7 +55,7 @@ public class Musteri implements Serializable {
 	@JoinColumn(name="yetkiNo")
 	private Yetki yetki;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="musteriler", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="musteri", cascade = CascadeType.ALL)
 	private List<Siparis> siparis;
 
 	public Musteri() {

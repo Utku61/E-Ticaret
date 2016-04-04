@@ -8,9 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kbhkn.eticaret.dao.OdemeSecenekDAO;
 import com.kbhkn.eticaret.model.OdemeSecenek;
+import com.kbhkn.eticaret.service.OdemeSecenekService;
 
 @Service
-public class OdemeSecenekDaoImpl implements OdemeSecenekDAO {
+public class OdemeSecenekServiceImpl implements OdemeSecenekService {
 
 	@Autowired
 	private OdemeSecenekDAO odemeSecenekDao;

@@ -10,11 +10,11 @@
 		</layout>
 	</appender>
 
-	<appender name="file" class="org.apache.log4j.RollingFileAppender">
+	<appender name="file" class="org.apache.log4j.FileAppender">
 		<param name="append" value="false" />
-		<param name="maxFileSize" value="10MB" />
+		<param name="maxFileSize" value="1MB" />
 		<param name="maxBackupIndex" value="2" />
-		<param name="file" value="log/loging.log" />
+		<param name="file" value="/home/kbhkn/git/E-Ticaret/log/loging.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p %c:%L [%t] - %m%n" />
 		</layout>
@@ -45,8 +45,8 @@
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />
-		<appender-ref ref="console" />
 		<appender-ref ref="file" />
+		<appender-ref ref="console" />
 	</root>
 
 </log4j:configuration>
