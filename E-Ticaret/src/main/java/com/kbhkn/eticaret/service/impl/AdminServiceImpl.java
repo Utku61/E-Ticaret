@@ -3,12 +3,14 @@ package com.kbhkn.eticaret.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kbhkn.eticaret.dao.AdminDAO;
 import com.kbhkn.eticaret.model.Admin;
 import com.kbhkn.eticaret.service.AdminService;
 
+@Service
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired

@@ -5,10 +5,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.kbhkn.eticaret.dao.MarkaDAO;
 import com.kbhkn.eticaret.model.Marka;
 
+@Repository
 public class MarkaDaoImpl implements MarkaDAO {
 
 	@Autowired

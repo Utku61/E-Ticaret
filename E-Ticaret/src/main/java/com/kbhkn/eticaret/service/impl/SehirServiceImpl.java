@@ -3,12 +3,14 @@ package com.kbhkn.eticaret.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kbhkn.eticaret.dao.SehirDAO;
 import com.kbhkn.eticaret.model.Sehir;
 import com.kbhkn.eticaret.service.SehirService;
 
+@Service
 public class SehirServiceImpl implements SehirService {
 
 	@Autowired

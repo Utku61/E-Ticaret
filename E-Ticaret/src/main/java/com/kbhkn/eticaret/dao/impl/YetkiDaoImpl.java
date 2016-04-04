@@ -5,10 +5,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.kbhkn.eticaret.dao.YetkiDAO;
 import com.kbhkn.eticaret.model.Yetki;
 
+@Repository
 public class YetkiDaoImpl implements YetkiDAO {
 
 	@Autowired

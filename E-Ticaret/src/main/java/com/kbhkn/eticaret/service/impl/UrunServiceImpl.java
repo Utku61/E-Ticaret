@@ -3,12 +3,14 @@ package com.kbhkn.eticaret.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kbhkn.eticaret.dao.UrunDAO;
 import com.kbhkn.eticaret.model.Urun;
 import com.kbhkn.eticaret.service.UrunService;
 
+@Service
 public class UrunServiceImpl implements UrunService {
 
 	@Autowired
