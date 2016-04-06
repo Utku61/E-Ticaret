@@ -37,7 +37,9 @@ public class YetkiDaoImpl implements YetkiDAO {
 
 	@Override
 	public void deleteYetki(Integer yetkiId) {
-		getSession().delete(getYetkiById(yetkiId));
+		Yetki yetki = getYetkiById(yetkiId);
+		if(yetki != null)
+			getSession().delete(yetki);
 	}
 
 	@SuppressWarnings("unchecked")

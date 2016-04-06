@@ -9,6 +9,8 @@ public interface AdminDAO {
 
 	public Admin getAdminById(Integer adminId);
 	
+	public Admin getUserByName(String username);
+	
 	public void updateAdmin(Admin admin);
 
 	public void deleteAdmin(Integer adminId);

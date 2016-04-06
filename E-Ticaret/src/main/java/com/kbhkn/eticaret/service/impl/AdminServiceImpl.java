@@ -25,6 +25,11 @@ public class AdminServiceImpl implements AdminService {
 	public Admin getAdminById(Integer adminId) {
 		return adminDao.getAdminById(adminId);
 	}
+	
+	@Transactional
+	public Admin getUserByName(String username) {
+		return adminDao.getUserByName(username);
+	}
 
 	@Transactional
 	public void updateAdmin(Admin admin) {

@@ -38,7 +38,9 @@ public class UrunDaoImpl implements UrunDAO {
 
 	@Override
 	public void deleteUrun(Integer urunId) {
-		getSession().delete(getUrunById(urunId));
+		Urun urun = getUrunById(urunId);
+		if(urun != null)
+			getSession().delete(urun);
 	}
 	
 	@Override

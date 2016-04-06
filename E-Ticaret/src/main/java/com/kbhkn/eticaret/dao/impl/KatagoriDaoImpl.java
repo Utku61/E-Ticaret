@@ -37,7 +37,9 @@ public class KatagoriDaoImpl implements KategoriDAO {
 
 	@Override
 	public void deleteKatagori(Integer kategoriId) {
-		getSession().delete(getKatagoriById(kategoriId));
+		Katagori katagori = getKatagoriById(kategoriId);
+		if(katagori != null)
+			getSession().delete(katagori);
 	}
 
 	@SuppressWarnings("unchecked")

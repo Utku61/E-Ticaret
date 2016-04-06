@@ -8,6 +8,8 @@ public interface AdminService {
 	public void addAdmin(Admin admin);
 
 	public Admin getAdminById(Integer adminId);
+	
+	public Admin getUserByName(String username);
 
 	public void updateAdmin(Admin admin);
 

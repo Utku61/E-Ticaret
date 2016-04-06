@@ -37,7 +37,9 @@ public class SiparisDurumDaoImpl implements SiparisDurumDAO {
 
 	@Override
 	public void deleteSiparisDurum(Integer siparisDurumId) {
-		getSession().delete(getSiparisDurumById(siparisDurumId));
+		SiparisDurum durum = getSiparisDurumById(siparisDurumId);
+		if(durum != null)
+			getSession().delete(durum);
 	}
 
 	@SuppressWarnings("unchecked")

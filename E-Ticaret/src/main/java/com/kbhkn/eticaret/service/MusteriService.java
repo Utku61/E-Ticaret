@@ -8,6 +8,8 @@ public interface MusteriService {
 	public void addMusteri(Musteri musteri);
 
 	public Musteri getMusteriById(Integer musteriId);
+	
+	public Musteri getUserByName(String username);
 
 	public void updateMusteri(Musteri musteri);
 

@@ -37,7 +37,9 @@ public class SehirDaoImpl implements SehirDAO {
 
 	@Override
 	public void deleteSehir(Integer sehirId) {
-		getSession().delete(getSehirById(sehirId));
+		Sehir sehir = getSehirById(sehirId);
+		if(sehir != null)
+			getSession().delete(sehir);
 	}
 
 	@SuppressWarnings("unchecked")

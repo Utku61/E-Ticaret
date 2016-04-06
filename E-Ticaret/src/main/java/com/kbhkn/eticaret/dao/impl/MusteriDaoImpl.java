@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,6 +31,11 @@ public class MusteriDaoImpl implements MusteriDAO {
 	public Musteri getMusteriById(Integer musteriId) {
 		return (Musteri) getSession().get(Musteri.class, musteriId);
 	}
+	
+	@Override
+	public Musteri getUserByName(String username) {
+		return (Musteri) getSession().createCriteria(Musteri.class).add(Restrictions.eq("Eposta", username)).uniqueResult();
+	}
 
 	@Override
 	public void updateMusteri(Musteri musteri) {
@@ -38,7 +44,9 @@ public class MusteriDaoImpl implements MusteriDAO {
 
 	@Override
 	public void deleteMusteri(Integer musteriId) {
-		getSession().delete(getMusteriById(musteriId));
+		Musteri musteri = getMusteriById(musteriId);
+		if(musteri != null)
+			getSession().delete(musteri);
 	}
 	
 	@Override

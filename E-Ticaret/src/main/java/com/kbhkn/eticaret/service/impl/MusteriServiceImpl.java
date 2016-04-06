@@ -25,6 +25,11 @@ public class MusteriServiceImpl implements MusteriService {
 	public Musteri getMusteriById(Integer musteriId) {
 		return musteriDAO.getMusteriById(musteriId);
 	}
+	
+	@Transactional
+	public Musteri getUserByName(String username) {
+		return musteriDAO.getUserByName(username);
+	}
 
 	@Transactional
 	public void updateMusteri(Musteri musteri) {

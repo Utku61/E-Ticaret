@@ -37,7 +37,9 @@ public class SiparisDaoImpl implements SiparisDAO {
 
 	@Override
 	public void deleteSiparis(Integer siparisId) {
-		getSession().delete(getSiparisById(siparisId));
+		Siparis siparis = getSiparisById(siparisId);
+		if(siparis != null)
+			getSession().delete(siparis);
 	}
 
 	@SuppressWarnings("unchecked")

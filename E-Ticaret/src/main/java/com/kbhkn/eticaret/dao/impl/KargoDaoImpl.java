@@ -37,7 +37,9 @@ public class KargoDaoImpl implements KargoDAO {
 
 	@Override
 	public void deleteKargo(Integer kargoId) {
-		getSession().delete(getKargoById(kargoId));
+		Kargo kargo = getKargoById(kargoId);
+		if(kargo != null)
+			getSession().delete(getKargoById(kargoId));
 	}
 	
 	@SuppressWarnings("unchecked")

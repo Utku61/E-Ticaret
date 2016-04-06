@@ -1,45 +1,71 @@
 package com.kbhkn.eticaret.controller;
 
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kbhkn.eticaret.service.KategoriService;
-import com.kbhkn.eticaret.service.UrunService;
+import com.kbhkn.eticaret.model.Yetki;
+import com.kbhkn.eticaret.service.YetkiService;
 
 @Controller
+@RequestMapping("/admin/yetkis")
+@SessionAttributes("logonUser")
 public class YetkiController {
 	private static final Logger logger = LoggerFactory.getLogger(YetkiController.class);
-
-	@Autowired
-	private UrunService urunService;
 	
 	@Autowired
-	private KategoriService kategoriService;
+	private YetkiService yetkiService;
 
-	@RequestMapping(value = "/check", method = RequestMethod.GET)
-	public String listAllYetkissPage(Model model) {
-		model.addAttribute("allYetkis", kategoriService.getAllKatagoris());
-		logger.info("Welcome home! The client locale is {}.", model);
-		return "home";
-	}
-	
-	@RequestMapping(value = "/musteri", method = RequestMethod.GET)
-	public void SiparisPage(Model model) {
-		model.addAttribute("allYetkis", urunService.getImageByUrunId(1));
-		logger.info("Welcome home! The client locale is {}.", model.getClass());
-		//return "home";
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String listAllYetkis(HttpSession session, ModelMap model) {
+		model.addAttribute("yetki", new Yetki());
+		model.addAttribute("allYetkis", yetkiService.getAllYetkis());
+		logger.info("Yetkiler listelendi.");
+		return "admin/yetkis/list";
 	}
 
-	public void setUrunService(UrunService urunService) {
-		this.urunService = urunService;
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	public String addYetki(@Valid Yetki yetki, BindingResult result, ModelMap model) {
+		if (result.hasErrors()) {
+			logger.info("Hatalı yetki eklemesi yapıldı.");
+			return "admin/yetkis/list";
+		}
+
+		yetkiService.addYetki(yetki);
+		logger.info("{} isimli yeni yetki eklendi.", yetki.toString());
+		return "redirect:/admin/yetkis/list";
+	}
+
+	@RequestMapping(value = "/deleteyetki/{yetkiID}", method = RequestMethod.GET)
+	public String deleteYetki(@PathVariable("yetkiID") Integer yetkiID) {
+		yetkiService.deleteYetki(yetkiID);
+		logger.info("{} nolu ID'ye sahip yetkiID kaldırıldı.", yetkiID);
+		return "redirect:/admin/yetkis/list";
+	}
+
+	@RequestMapping(value = "/yetkiguncelle/{urunID}", method = RequestMethod.POST)
+	public String editYetki(@Valid Yetki yetki, BindingResult result, @PathVariable("yetkiID") Integer yetkiID, ModelMap model) {
+		if (result.hasErrors()) {
+			logger.info("{} nolu ID'ye sahip yetki güncelleme sırasında hata oluştu", yetkiID);
+			return "admin/yetkis/list";
+		}
+
+		yetkiService.updateYetki(yetki);
+		logger.info("{} nolu yetki güncellendi. Yeni özellikleri: {}", yetkiID , yetki.toString());
+		return "redirect:/admin/yetkis/list";
 	}
 	
-	public void setKategoriService(KategoriService kategoriService) {
-		this.kategoriService = kategoriService;
+	public void setYetkiService(YetkiService yetkiService) {
+		this.yetkiService = yetkiService;
 	}
 }

@@ -37,7 +37,9 @@ public class OdemeSecenekDaoImpl implements OdemeSecenekDAO {
 
 	@Override
 	public void deleteOdemeSecenek(Integer odemeSecenekId) {
-		getSession().delete(getOdemeSecenekById(odemeSecenekId));
+		OdemeSecenek odemeSenecek = getOdemeSecenekById(odemeSecenekId);
+		if(odemeSenecek != null)
+			getSession().delete(odemeSenecek);
 	}
 	
 	@SuppressWarnings("unchecked")

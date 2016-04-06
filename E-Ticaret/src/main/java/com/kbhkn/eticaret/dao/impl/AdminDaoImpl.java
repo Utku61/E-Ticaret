@@ -32,6 +32,11 @@ public class AdminDaoImpl implements AdminDAO {
 	public Admin getAdminById(Integer adminId) {
 		return (Admin) getSession().get(Admin.class, adminId);
 	}
+	
+	@Override
+	public Admin getUserByName(String username) {
+		return (Admin) getSession().createCriteria(Admin.class).add(Restrictions.eq("Eposta", username)).uniqueResult();
+	}
 
 	@Override
 	public void updateAdmin(Admin admin) {
@@ -40,7 +45,9 @@ public class AdminDaoImpl implements AdminDAO {
 
 	@Override
 	public void deleteAdmin(Integer adminId) {
-		getSession().delete(getAdminById(adminId));
+		Admin admin = getAdminById(adminId);
+		if(admin != null)
+			getSession().delete(admin);
 	}
 	
 	@Override
