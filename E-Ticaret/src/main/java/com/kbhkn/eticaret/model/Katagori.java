@@ -21,7 +21,7 @@ public class Katagori implements Serializable {
 	@Column(name="KatagoriAdi", nullable=false, length=45)
 	private String katagoriAdi;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "katagori", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "kategori", cascade = CascadeType.ALL)
 	private List<Urun> uruns;
 
 	public Katagori() {

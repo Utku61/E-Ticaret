@@ -12,6 +12,10 @@ public interface AdminService {
 	public void updateAdmin(Admin admin);
 
 	public void deleteAdmin(Integer adminId);
+	
+	public Admin getAdminControl(String username, String password);
+	
+	public boolean getBekleyenSiparisKontrol();
 
 	public List<Admin> getAllAdmins();
 }

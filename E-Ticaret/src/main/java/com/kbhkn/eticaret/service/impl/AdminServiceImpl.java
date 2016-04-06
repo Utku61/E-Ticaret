@@ -37,6 +37,16 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Transactional
+	public Admin getAdminControl(String username, String password) {
+		return adminDao.getAdminControl(username, password);
+	}
+	
+	@Transactional
+	public boolean getBekleyenSiparisKontrol() {
+		return adminDao.getBekleyenSiparisKontrol();
+	}
+	
+	@Transactional
 	public List<Admin> getAllAdmins() {
 		return adminDao.getAllAdmins();
 	}
@@ -44,5 +54,4 @@ public class AdminServiceImpl implements AdminService {
 	public void setAdminDao(AdminDAO adminDao) {
 		this.adminDao = adminDao;
 	}
-
 }

@@ -2,6 +2,7 @@ package com.kbhkn.eticaret.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,28 @@ public class UrunDaoImpl implements UrunDAO {
 	@Override
 	public void deleteUrun(Integer urunId) {
 		getSession().delete(getUrunById(urunId));
+	}
+	
+	@Override
+	public byte[] getImageByUrunId(Integer urunId) {
+		byte resim[] = getUrunById(urunId).getResim();
+		return (resim == null) ? null : resim;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Urun> getUrunByKategoriId(Integer kategoriId) {
+		Query query = getSession().createQuery("from Urun where KatagoriID = :id");
+		query.setParameter("id", kategoriId);
+		return (List<Urun>)query.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Urun> searchUrun(String urunAdi) {
+		Query query = getSession().createQuery("from Urun where UrunAdi LIKE CONCAT('%', :urunAdi, '%')");
+		query.setParameter("urunAdi", urunAdi);
+		return (List<Urun>) query.list();
 	}
 
 	@SuppressWarnings("unchecked")

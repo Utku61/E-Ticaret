@@ -11,11 +11,11 @@ import com.kbhkn.eticaret.model.Musteri;
 import com.kbhkn.eticaret.service.MusteriService;
 
 @Service
-public class MusteriServiceImpl implements MusteriService{
-	
+public class MusteriServiceImpl implements MusteriService {
+
 	@Autowired
 	private MusteriDAO musteriDAO;
-	
+
 	@Transactional
 	public void addMusteri(Musteri musteri) {
 		musteriDAO.addMusteri(musteri);
@@ -34,6 +34,11 @@ public class MusteriServiceImpl implements MusteriService{
 	@Transactional
 	public void deleteMusteri(Integer musteriId) {
 		musteriDAO.deleteMusteri(musteriId);
+	}
+
+	@Transactional
+	public Musteri getMusteriControl(String username, String password) {
+		return musteriDAO.getMusteriControl(username, password);
 	}
 
 	@Transactional

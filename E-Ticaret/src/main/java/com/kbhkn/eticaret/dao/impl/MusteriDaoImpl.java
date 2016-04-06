@@ -2,6 +2,7 @@ package com.kbhkn.eticaret.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,14 @@ public class MusteriDaoImpl implements MusteriDAO {
 	@Override
 	public void deleteMusteri(Integer musteriId) {
 		getSession().delete(getMusteriById(musteriId));
+	}
+	
+	@Override
+	public Musteri getMusteriControl(String username, String password) {
+		Query query = getSession().createQuery("from Musteri where Eposta = :username and Parola = :password");
+		query.setString("username", username);
+		query.setString("password", password);
+		return (Musteri) query.uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")

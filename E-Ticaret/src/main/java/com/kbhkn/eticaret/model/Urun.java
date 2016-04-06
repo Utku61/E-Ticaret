@@ -36,12 +36,8 @@ public class Urun implements Serializable {
 	private List<Siparis> siparis;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="KatagoriID")
-	private Katagori katagori;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="MarkaID")
-	private Marka marka;
+	@JoinColumn(name="KatagoriID", nullable = false)
+	private Katagori kategori;
 
 	public Urun() {
 	}
@@ -102,26 +98,18 @@ public class Urun implements Serializable {
 		this.siparis = siparis;
 	}
 
-	public Katagori getKatagori() {
-		return this.katagori;
+	public Katagori getKategori() {
+		return kategori;
 	}
 
-	public void setKatagori(Katagori katagori) {
-		this.katagori = katagori;
-	}
-
-	public Marka getMarka() {
-		return this.marka;
-	}
-
-	public void setMarka(Marka marka) {
-		this.marka = marka;
+	public void setKategori(Katagori kategori) {
+		this.kategori = kategori;
 	}
 
 	@Override
 	public String toString() {
 		return "Urun [urunID=" + urunID + ", aciklama=" + aciklama + ", fiyat=" + fiyat + ", resim="
 				+ Arrays.toString(resim) + ", stokMiktar=" + stokMiktar + ", urunAdi=" + urunAdi + ", siparis="
-				+ siparis + ", katagori=" + katagori + ", marka=" + marka + "]";
+				+ siparis + ", katagori=" + kategori + "]";
 	}
 }

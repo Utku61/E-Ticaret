@@ -12,6 +12,12 @@ public interface UrunService {
 	public void updateUrun(Urun urun);
 
 	public void deleteUrun(Integer urunId);
+	
+	public byte[] getImageByUrunId(Integer urunId);
+	
+	public List<Urun> getUrunByKategoriId(Integer kategoriId);
+	
+	public List<Urun> searchUrun(String urunAdi);
 
 	public List<Urun> getAllUruns();
 }

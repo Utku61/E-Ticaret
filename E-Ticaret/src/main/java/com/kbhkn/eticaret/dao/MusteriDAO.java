@@ -12,6 +12,8 @@ public interface MusteriDAO {
 	public void updateMusteri(Musteri musteri);
 
 	public void deleteMusteri(Integer musteriId);
+	
+	public Musteri getMusteriControl(String username, String password);
 
 	public List<Musteri> getAllMusteris();
 }

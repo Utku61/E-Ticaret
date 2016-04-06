@@ -35,6 +35,21 @@ public class UrunServiceImpl implements UrunService {
 	public void deleteUrun(Integer urunId) {
 		urunDao.deleteUrun(urunId);
 	}
+	
+	@Transactional
+	public byte[] getImageByUrunId(Integer urunId) {
+		return urunDao.getImageByUrunId(urunId);
+	}
+	
+	@Transactional
+	public List<Urun> getUrunByKategoriId(Integer kategoriId) {
+		return urunDao.getUrunByKategoriId(kategoriId);
+	}
+
+	@Transactional
+	public List<Urun> searchUrun(String urunAdi) {
+		return urunDao.searchUrun(urunAdi);
+	}
 
 	@Transactional
 	public List<Urun> getAllUruns() {
@@ -44,5 +59,4 @@ public class UrunServiceImpl implements UrunService {
 	public void setUrunDao(UrunDAO urunDao) {
 		this.urunDao = urunDao;
 	}
-
 }
