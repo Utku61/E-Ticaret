@@ -31,7 +31,7 @@ public class OdemeSecenekController {
 		model.addAttribute("odemeSecenek", new OdemeSecenek());
 		model.addAttribute("allOdemeSeceneks", odemeSecenekService.getAllOdemeSeceneks());
 		logger.info("Ödeme Seçenekleri listelendi.");
-		return "admin/odemeseceneks/list";
+		return "admin/odemeSecenek";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
@@ -39,7 +39,7 @@ public class OdemeSecenekController {
 
 		if (result.hasErrors()) {
 			logger.info("Hatalı ödeme seçeneği eklemesi yapıldı.");
-			return "admin/odemeseceneks/list";
+			return "admin/odemeSecenek";
 		}
 
 		odemeSecenekService.addOdemeSecenek(odemeSecenek);
@@ -54,9 +54,8 @@ public class OdemeSecenekController {
 		return "redirect:/admin/odemeseceneks/list";
 	}
 
-	@RequestMapping(value = "/odemesecenekguncelleme/{odemeSecenekID}", method = RequestMethod.POST)
-	public String editOdemeSecenek(@Valid OdemeSecenek odemeSecenek, BindingResult result,
-			@PathVariable("odemeSecenekID") Integer odemeSecenekID, ModelMap model) {
+	@RequestMapping(value = "/odemesecenekguncelleme", method = RequestMethod.POST)
+	public String editOdemeSecenek(@Valid OdemeSecenek odemeSecenek, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			logger.info("{} ödeme seçeneğini güncelleme sırasında hata oluştu", odemeSecenek.getOdemeTipi());
 			return "admin/odemeseceneks/list";

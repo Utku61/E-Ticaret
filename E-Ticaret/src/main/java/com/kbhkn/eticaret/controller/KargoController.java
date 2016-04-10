@@ -31,7 +31,7 @@ public class KargoController {
 		model.addAttribute("kargo", new Kargo());
 		model.addAttribute("allKargos", kargoService.getAllKargos());
 		logger.info("Kargolar listelendi.");
-		return "admin/kargos/list";
+		return "admin/kargo";
 	}
 	
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
@@ -39,7 +39,7 @@ public class KargoController {
 		
 		if (result.hasErrors()) {
 			logger.info("Hatalı kargo eklemesi yapıldı.");
-			return "admin/kargos/list";
+			return "admin/kargo";
 		}
 		
 		kargoService.addKargo(kargo);
@@ -54,11 +54,11 @@ public class KargoController {
 		return "redirect:/admin/kargos/list";
 	}
 
-	@RequestMapping(value = "/kargoguncelle/{kargoId}", method = RequestMethod.POST)
-	public String editKargo(@Valid Kargo kargo, BindingResult result, @PathVariable("kargoId") Integer kargoId, ModelMap model) {
+	@RequestMapping(value = "/kargoguncelle", method = RequestMethod.POST)
+	public String editKargo(@Valid Kargo kargo, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			logger.info("{} şirketini güncelleme sırasında hata oluştu", kargo.getAd());
-			return "admin/kargos/list";
+			return "admin/kargo";
 		}
 		
 		kargoService.updateKargo(kargo);

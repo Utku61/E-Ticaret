@@ -18,7 +18,7 @@ import com.kbhkn.eticaret.model.SiparisDurum;
 import com.kbhkn.eticaret.service.SiparisDurumService;
 
 @Controller
-@RequestMapping("/admin/siparisDurums")
+@RequestMapping("/admin/siparisdurums")
 @SessionAttributes("logonUser")
 public class SiparisDurumController {
 	private static final Logger logger = LoggerFactory.getLogger(SiparisController.class);
@@ -31,38 +31,38 @@ public class SiparisDurumController {
 		model.addAttribute("siparisDurum", new SiparisDurum());
 		model.addAttribute("allSiparisDurums", siparisDurumService.getAllSiparisDurums());
 		logger.info("Sipariş Durumları listelendi.");
-		return "admin/siparisDurums/list";
+		return "admin/siparisdurum";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public String addSiparisDurum(@Valid SiparisDurum siparisDurum, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			logger.info("Hatalı sipariş durumu eklemesi yapıldı.");
-			return "admin/siparisDurums/list";
+			return "admin/siparisdurum";
 		}
 
 		siparisDurumService.addSiparisDurum(siparisDurum);
 		logger.info("{} isimli yeni sipariş durumu eklendi.", siparisDurum.getDurum());
-		return "redirect:/admin/siparisDurums/list";
+		return "redirect:/admin/siparisdurums/list";
 	}
 
 	@RequestMapping(value = "/deletesiparisdurum/{siparisDurumID}", method = RequestMethod.GET)
 	public String deleteSiparisDurum(@PathVariable("siparisDurumID") Integer siparisDurumID) {
 		siparisDurumService.deleteSiparisDurum(siparisDurumID);
 		logger.info("{} nolu ID'ye sahip sipariş durumu kaldırıldı.", siparisDurumID);
-		return "redirect:/admin/siparisDurums/list";
+		return "redirect:/admin/siparisdurums/list";
 	}
 
-	@RequestMapping(value = "/siparisdurumguncelle/{siparisDurumID}", method = RequestMethod.POST)
-	public String editSiparisDurum(@Valid SiparisDurum siparisDurum, BindingResult result, @PathVariable("siparisDurumID") Integer siparisDurumID, ModelMap model) {
+	@RequestMapping(value = "/siparisdurumguncelle", method = RequestMethod.POST)
+	public String editSiparisDurum(@Valid SiparisDurum siparisDurum, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			logger.info("{} nolu ID'ye sahip sipariş durumu güncelleme sırasında hata oluştu", siparisDurumID);
-			return "admin/siparisDurums/list";
+			logger.info("{} nolu ID'ye sahip sipariş durumu güncelleme sırasında hata oluştu", siparisDurum.getSiparisDurumID());
+			return "admin/siparisdurum";
 		}
 
 		siparisDurumService.updateSiparisDurum(siparisDurum);
-		logger.info("{} nolu sipariş güncellendi. Yeni özellikleri: {}", siparisDurumID ,siparisDurum.toString());
-		return "redirect:/admin/siparisDurums/list";
+		logger.info("{} nolu sipariş güncellendi. Yeni özellikleri: {}", siparisDurum.getSiparisDurumID() ,siparisDurum.toString());
+		return "redirect:/admin/siparisdurums/list";
 	}
 	
 	public void setSiparisDurumService(SiparisDurumService siparisDurumService) {

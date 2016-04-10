@@ -52,8 +52,8 @@ $(document).ready(function(){
 
 	$("#EditKargoModal").on('show.bs.modal',function(e){
 		$(this).find('#kargoID').val($(e.relatedTarget).data('kargo-no'));
-		$(this).find('#kargoAd').val($(e.relatedTarget).data('kargo-ad'));
-		$(this).find('#kargoAciklama').val($(e.relatedTarget).data('kargo-aciklama'));
+		$(this).find('#ad').val($(e.relatedTarget).data('kargo-ad'));
+		$(this).find('#aciklama').val($(e.relatedTarget).data('kargo-aciklama'));
 	});
 	
 	$("#EditKatagoriModal").on('show.bs.modal',function(e){
@@ -74,11 +74,11 @@ $(document).ready(function(){
 	
 	$("#EditSehirModal").on('show.bs.modal',function(e){
 		$(this).find('#sehirID').val($(e.relatedTarget).data('sehir-no'));
-		$(this).find('#sehirAd').val($(e.relatedTarget).data('sehir-ad'));
+		$(this).find('#sehirAdi').val($(e.relatedTarget).data('sehir-ad'));
 	});
 	
 	$("#EditSDurumModal").on('show.bs.modal',function(e){
-		$(this).find('#ID').val($(e.relatedTarget).data('sdurum-no'));
+		$(this).find('#siparisDurumID').val($(e.relatedTarget).data('sdurum-no'));
 		$(this).find('#durum').val($(e.relatedTarget).data('sdurum-ad'));
 	});
 	
@@ -91,8 +91,8 @@ $(document).ready(function(){
 	});
 	
 	$("#EditYetkiModal").on('show.bs.modal',function(e){
-		$(this).find('#yetkiID').val($(e.relatedTarget).data('yetki-no'));
-		$(this).find('#yetkiAd').val($(e.relatedTarget).data('yetki-ad'));
+		$(this).find('#yetkiNo').val($(e.relatedTarget).data('yetki-no'));
+		$(this).find('#yetkiAdi').val($(e.relatedTarget).data('yetki-ad'));
 	});
 	
 	$("#EditSiparisModal").on('show.bs.modal',function(e){

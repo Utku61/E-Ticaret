@@ -58,25 +58,6 @@ public class MusterilerController {
 		}
 	}
 	
-	@RequestMapping(value = "/musterilogin", method = RequestMethod.POST)
-	public String siparisVer(@Valid Musteri musteri, HttpSession session, BindingResult result, ModelMap model) {
-		if (result.hasErrors()) {
-			model.addAttribute("kayitStatus", "Lütfen eksik/yanlış bilgi girmeyiniz!");
-			return "musteri/login";
-		}
-		
-		Musteri loginUser = musteriService.getMusteriControl(musteri.getEposta(), musteri.getParola());
-		if(loginUser != null){
-			ArrayList<Urun> sepet = new ArrayList<Urun>();
-			session.setAttribute("sepet", sepet);
-			session.setAttribute("musteri", loginUser);
-			return "musteri/index";
-		}else{
-			model.addAttribute("status", "E-Posta adresiniz veya şifre hatalı");
-			return "musteri/login";
-		}
-	}
-	
 	@RequestMapping(value = "/katagoriUrun", method = RequestMethod.GET)
 	public String listAllKategoris(HttpSession session, ModelMap model, @PathVariable("katagoriID") Integer katagoriID) {
 		List<Urun> uruns = urunService.getUrunByKategoriId(katagoriID);

@@ -46,8 +46,8 @@ public class Urun implements Serializable {
 	private List<Siparis> siparis;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="KatagoriID", nullable = false)
-	private Katagori kategori;
+	@JoinColumn(name="AltKategoriID", nullable = false)
+	private AltKategori altKategori;
 
 	public Urun() {
 	}
@@ -108,18 +108,18 @@ public class Urun implements Serializable {
 		this.siparis = siparis;
 	}
 
-	public Katagori getKategori() {
-		return kategori;
+	public AltKategori getAltKategori() {
+		return altKategori;
 	}
 
-	public void setKategori(Katagori kategori) {
-		this.kategori = kategori;
+	public void setAltKategori(AltKategori altKategori) {
+		this.altKategori = altKategori;
 	}
 
 	@Override
 	public String toString() {
 		return "Urun [urunID=" + urunID + ", aciklama=" + aciklama + ", fiyat=" + fiyat + ", resim="
 				 + ", stokMiktar=" + stokMiktar + ", urunAdi=" + urunAdi + ", siparis="
-				+ siparis + ", katagori=" + kategori + "]";
+				+ siparis + ", altkatagori=" + altKategori.toString() + "]";
 	}
 }

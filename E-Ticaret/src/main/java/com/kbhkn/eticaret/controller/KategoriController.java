@@ -12,14 +12,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import com.kbhkn.eticaret.model.Katagori;
+import com.kbhkn.eticaret.model.AltKategori;
+import com.kbhkn.eticaret.model.Kategori;
+import com.kbhkn.eticaret.model.UstKategori;
 import com.kbhkn.eticaret.service.KategoriService;
 
 @Controller
+@EnableWebMvc
 @RequestMapping("/admin/kategoris")
-@SessionAttributes("logonUser")
 public class KategoriController {
 	private static final Logger logger = LoggerFactory.getLogger(KategoriController.class);
 
@@ -28,41 +30,107 @@ public class KategoriController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listAllKategoris(HttpSession session, ModelMap model) {
-		model.addAttribute("kategori", new Katagori());
-		model.addAttribute("allKategoris", kategoriService.getAllKatagoris());
-		logger.info("Kategoriler listelendi.");
-		return "admin/kategoris/list";
+		model.addAttribute("subCategory", new AltKategori());
+		model.addAttribute("category", new Kategori());
+		model.addAttribute("upCategory", new UstKategori());
+		model.addAttribute("allAltKategoris", kategoriService.getAllAltKategoris());
+		model.addAttribute("allKategoris", kategoriService.getAllKategoris());
+		model.addAttribute("allUstKategoris", kategoriService.getAllUstKategoris());
+		logger.info("Tüm Kategoriler listelendi.");
+		return "admin/kategori";
 	}
 	
-	@RequestMapping(value = "/new", method = RequestMethod.POST)
-	public String addKategori(@Valid Katagori katagori, BindingResult result, ModelMap model) {
-		
+	@RequestMapping(value = "/altkategori/new", method = RequestMethod.POST)
+	public String addAltKategori(@Valid AltKategori subCategory, BindingResult result, ModelMap model) {
+		System.out.println(subCategory.getAltKategoriAdi());
 		if (result.hasErrors()) {
-			logger.info("Hatalı katagori eklemesi yapıldı. Hatalı kategori adı: {}", katagori.getKatagoriAdi());
-			return "admin/kategoris/list";
+			logger.info("Hatalı altKatagori eklemesi yapıldı. Hatalı kategori adı: {}", subCategory.getAltKategoriAdi());
+			return "admin/kategori";
 		}
 		
-		kategoriService.addKatagori(katagori);
-		logger.info("{} kategorisi eklendi.", katagori.getKatagoriAdi());
+		kategoriService.addAltKategori(subCategory);
+		logger.info("{} kategorisi eklendi.", subCategory.getAltKategoriAdi());
+		return "redirect:/admin/kategoris/list";
+	}
+	
+	@RequestMapping(value = "/kategori/new", method = RequestMethod.POST)
+	public String addKategori(@Valid Kategori category, BindingResult result, ModelMap model){
+		if (result.hasErrors()) {
+			logger.info("Hatalı Katagori eklemesi yapıldı. Hatalı kategori adı: {}", category.getKategoriAdi());
+			return "admin/kategori";
+		}
+		kategoriService.addKategori(category);
+		logger.info("{} kategorisi eklendi.", category.getKategoriAdi());
+		return "redirect:/admin/kategoris/list";
+	}
+	
+	@RequestMapping(value = "/ustkategori/new", method = RequestMethod.POST)
+	public String addUstKategori(@Valid UstKategori upCategory, BindingResult result, ModelMap model) {
+		
+		if (result.hasErrors()) {
+			logger.info("Hatalı üstKatagori eklemesi yapıldı. Hatalı kategori adı: {}", upCategory.getUstKategoriAdi());
+			return "admin/kategori";
+		}
+		
+		kategoriService.addUstKategori(upCategory);
+		logger.info("{} kategorisi eklendi.", upCategory.getUstKategoriAdi());
+		return "redirect:/admin/kategoris/list";
+	}
+	
+	@RequestMapping(value = "/deletealtkatagori/{katagoriID}", method = RequestMethod.GET)
+	public String deleteAltKategori(@PathVariable("altKatagoriID") Integer altKatagoriID) {
+		kategoriService.deleteAltKategori(altKatagoriID);
+		logger.info("{}'ye sahip altkategori kaldırıldı.", altKatagoriID);
 		return "redirect:/admin/kategoris/list";
 	}
 	
 	@RequestMapping(value = "/deletekatagori/{katagoriID}", method = RequestMethod.GET)
 	public String deleteKategori(@PathVariable("katagoriID") Integer katagoriID) {
-		kategoriService.deleteKatagori(katagoriID);
+		kategoriService.deleteKategori(katagoriID);
 		logger.info("{}'ye sahip kategori kaldırıldı.", katagoriID);
 		return "redirect:/admin/kategoris/list";
 	}
-
-	@RequestMapping(value = "/katagoriguncelle/{katagoriID}", method = RequestMethod.POST)
-	public String editKategori(@Valid Katagori katagori, BindingResult result, @PathVariable("katagoriID") Integer katagoriID, ModelMap model) {
+	
+	@RequestMapping(value = "/deleteustkatagori/{katagoriID}", method = RequestMethod.GET)
+	public String deleteUstKategori(@PathVariable("ustKatagoriID") Integer ustKatagoriID) {
+		kategoriService.deleteUstKategori(ustKatagoriID);
+		logger.info("{}'ye sahip ustkategori kaldırıldı.", ustKatagoriID);
+		return "redirect:/admin/kategoris/list";
+	}
+	
+	@RequestMapping(value = "/altkatagoriguncelle", method = RequestMethod.POST)
+	public String editAltKategori(@Valid AltKategori altKatagori, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			logger.info("{} kategorisini güncelleme sırasında hata oluştu", katagori.getKatagoriAdi());
-			return "admin/kategoris/list";
+			logger.info("{} altkategorisini güncelleme sırasında hata oluştu", altKatagori.getAltKategoriAdi());
+			return "admin/kategori";
 		}
 		
-		kategoriService.updateKatagori(katagori);
-		logger.info("{} kategorisi güncellendi. Yeni Kategori adı: {}", katagori.getKatagoriAdi(), kategoriService.getKatagoriById(katagori.getKatagoriID()).getKatagoriAdi());
+		kategoriService.updateAltKategori(altKatagori);
+		logger.info("{} altkategorisi güncellendi.", altKatagori.getAltKategoriAdi());
+		return "redirect:/admin/kategoris/list";
+	}
+
+	@RequestMapping(value = "/katagoriguncelle", method = RequestMethod.POST)
+	public String editKategori(@Valid Kategori katagori, BindingResult result, ModelMap model) {
+		if (result.hasErrors()) {
+			logger.info("{} kategorisini güncelleme sırasında hata oluştu", katagori.getKategoriAdi());
+			return "admin/kategori";
+		}
+		
+		kategoriService.updateKategori(katagori);
+		logger.info("{} altkategorisi güncellendi.", katagori.getKategoriAdi());
+		return "redirect:/admin/kategoris/list";
+	}
+	
+	@RequestMapping(value = "/ustkatagoriguncelle", method = RequestMethod.POST)
+	public String editUstKategori(@Valid UstKategori ustKatagori, BindingResult result, ModelMap model) {
+		if (result.hasErrors()) {
+			logger.info("{} üstkategorisini güncelleme sırasında hata oluştu", ustKatagori.getUstKategoriAdi());
+			return "admin/kategori";
+		}
+		
+		kategoriService.updateUstKategori(ustKatagori);
+		logger.info("{} altkategorisi güncellendi.", ustKatagori.getUstKategoriAdi());
 		return "redirect:/admin/kategoris/list";
 	}
 

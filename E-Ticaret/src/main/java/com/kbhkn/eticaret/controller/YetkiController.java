@@ -18,7 +18,7 @@ import com.kbhkn.eticaret.model.Yetki;
 import com.kbhkn.eticaret.service.YetkiService;
 
 @Controller
-@RequestMapping("/admin/yetkis")
+@RequestMapping("/admin/yetkis/")
 @SessionAttributes("logonUser")
 public class YetkiController {
 	private static final Logger logger = LoggerFactory.getLogger(YetkiController.class);
@@ -30,8 +30,9 @@ public class YetkiController {
 	public String listAllYetkis(HttpSession session, ModelMap model) {
 		model.addAttribute("yetki", new Yetki());
 		model.addAttribute("allYetkis", yetkiService.getAllYetkis());
+		model.addAttribute("name", "Hakan");
 		logger.info("Yetkiler listelendi.");
-		return "admin/yetkis/list";
+		return "admin/yetki";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
@@ -40,7 +41,6 @@ public class YetkiController {
 			logger.info("Hatalı yetki eklemesi yapıldı.");
 			return "admin/yetkis/list";
 		}
-
 		yetkiService.addYetki(yetki);
 		logger.info("{} isimli yeni yetki eklendi.", yetki.toString());
 		return "redirect:/admin/yetkis/list";
@@ -53,15 +53,15 @@ public class YetkiController {
 		return "redirect:/admin/yetkis/list";
 	}
 
-	@RequestMapping(value = "/yetkiguncelle/{urunID}", method = RequestMethod.POST)
-	public String editYetki(@Valid Yetki yetki, BindingResult result, @PathVariable("yetkiID") Integer yetkiID, ModelMap model) {
+	@RequestMapping(value = "/yetkiguncelle", method = RequestMethod.POST)
+	public String editYetki(@Valid Yetki yetki, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
-			logger.info("{} nolu ID'ye sahip yetki güncelleme sırasında hata oluştu", yetkiID);
+			logger.info("{} nolu ID'ye sahip yetki güncelleme sırasında hata oluştu", yetki.getYetkiNo());
 			return "admin/yetkis/list";
 		}
 
 		yetkiService.updateYetki(yetki);
-		logger.info("{} nolu yetki güncellendi. Yeni özellikleri: {}", yetkiID , yetki.toString());
+		logger.info("{} nolu yetki güncellendi. Yeni özellikleri: {}", yetki.getYetkiNo() , yetki.toString());
 		return "redirect:/admin/yetkis/list";
 	}
 	

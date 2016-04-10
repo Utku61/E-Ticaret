@@ -31,14 +31,14 @@ public class SehirController {
 		model.addAttribute("sehir", new Sehir());
 		model.addAttribute("allSehirs", sehirService.getAllSehirs());
 		logger.info("Şehirler listelendi.");
-		return "admin/sehirs/list";
+		return "admin/sehir";
 	}
 
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public String addSehir(@Valid Sehir sehir, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			logger.info("Hatalı şehir eklemesi yapıldı.");
-			return "admin/sehirs/list";
+			return "admin/sehir";
 		}
 
 		sehirService.addSehir(sehir);
@@ -53,15 +53,15 @@ public class SehirController {
 		return "redirect:/admin/sehirs/list";
 	}
 
-	@RequestMapping(value = "/sehirguncelle/{sehirID}", method = RequestMethod.POST)
-	public String editSehir(@Valid Sehir sehir, BindingResult result, @PathVariable("sehirID") Integer sehirID, ModelMap model) {
+	@RequestMapping(value = "/sehirguncelle", method = RequestMethod.POST)
+	public String editSehir(@Valid Sehir sehir, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			logger.info("{} şehrini güncelleme sırasında hata oluştu", sehir.getSehirAdi());
-			return "admin/sehirs/list";
+			return "admin/sehir";
 		}
 
 		sehirService.updateSehir(sehir);
-		logger.info("{} şehri güncellendi. Yeni şehir: {}", sehir.getSehirAdi(),sehirService.getSehirById(sehirID).getSehirAdi());
+		logger.info("{} şehri güncellendi. Yeni şehir: {}", sehir.getSehirAdi(),sehirService.getSehirById(sehir.getSehirID()).getSehirAdi());
 		return "redirect:/admin/sehirs/list";
 	}
 

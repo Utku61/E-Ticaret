@@ -7,40 +7,78 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kbhkn.eticaret.dao.KategoriDAO;
-import com.kbhkn.eticaret.model.Katagori;
+import com.kbhkn.eticaret.model.AltKategori;
+import com.kbhkn.eticaret.model.Kategori;
+import com.kbhkn.eticaret.model.UstKategori;
 import com.kbhkn.eticaret.service.KategoriService;
 
 @Service
+@Transactional
 public class KategoriServiceImpl implements KategoriService {
 
 	@Autowired
 	private KategoriDAO kategoriDAO;
 	
-	@Transactional
-	public void addKatagori(Katagori katagori) {
-		kategoriDAO.addKatagori(katagori);
+	public void addAltKategori(AltKategori altKategori) {
+		kategoriDAO.addAltKategori(altKategori);
 	}
 
-	@Transactional
-	public Katagori getKatagoriById(Integer kategoriId) {
-		return kategoriDAO.getKatagoriById(kategoriId);
+	public AltKategori getAltKategoriById(Integer altKategoriId) {
+		return kategoriDAO.getAltKategoriById(altKategoriId);
 	}
 
-	@Transactional
-	public void updateKatagori(Katagori katagori) {
-		kategoriDAO.updateKatagori(katagori);
+	public void updateAltKategori(AltKategori altKategori) {
+		kategoriDAO.addAltKategori(altKategori);
 	}
 
-	@Transactional
-	public void deleteKatagori(Integer kategoriId) {
-		kategoriDAO.deleteKatagori(kategoriId);
+	public void deleteAltKategori(Integer altKategoriId) {
+		kategoriDAO.deleteAltKategori(altKategoriId);
 	}
 
-	@Transactional
-	public List<Katagori> getAllKatagoris() {
-		return kategoriDAO.getAllKatagoris();
+	public List<AltKategori> getAllAltKategoris() {
+		return kategoriDAO.getAllAltKategoris();
+	}
+	
+	public void addKategori(Kategori kategori) {
+		kategoriDAO.addKategori(kategori);
 	}
 
+	public Kategori getKategoriById(Integer kategoriId) {
+		return kategoriDAO.getKategoriById(kategoriId);
+	}
+
+	public void updateKategori(Kategori kategori) {
+		kategoriDAO.updateKategori(kategori);
+	}
+
+	public void deleteKategori(Integer kategoriId) {
+		kategoriDAO.deleteKategori(kategoriId);
+	}
+
+	public List<Kategori> getAllKategoris() {
+		return kategoriDAO.getAllKategoris();
+	}
+	
+	public void addUstKategori(UstKategori ustKategori) {
+		kategoriDAO.addUstKategori(ustKategori);
+	}
+
+	public UstKategori getUstKategoriById(Integer ustKategoriId) {
+		return kategoriDAO.getUstKategoriById(ustKategoriId);
+	}
+
+	public void updateUstKategori(UstKategori ustKategori) {
+		kategoriDAO.updateUstKategori(ustKategori);
+	}
+
+	public void deleteUstKategori(Integer ustKategoriId) {
+		kategoriDAO.deleteUstKategori(ustKategoriId);
+	}
+
+	public List<UstKategori> getAllUstKategoris() {
+		return kategoriDAO.getAllUstKategoris();
+	}
+	
 	public void setKategoriDAO(KategoriDAO kategoriDAO) {
 		this.kategoriDAO = kategoriDAO;
 	}

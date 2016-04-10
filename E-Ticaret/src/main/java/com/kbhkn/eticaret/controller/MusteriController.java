@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.kbhkn.eticaret.model.Musteri;
 import com.kbhkn.eticaret.service.MusteriService;
 
 @Controller
@@ -26,10 +25,9 @@ public class MusteriController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String listAllMusteris(HttpSession session, ModelMap model) {
-		model.addAttribute("musteri", new Musteri());
 		model.addAttribute("allMusteris", musteriService.getAllMusteris());
 		logger.info("Müşteriler listelendi.");
-		return "admin/musteris/list";
+		return "admin/musteri";
 	}
 	
 	@RequestMapping(value = "/deletemusteri/{musteriID}", method = RequestMethod.GET)
