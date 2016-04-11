@@ -49,7 +49,7 @@ public class KategoriController {
 		}
 		
 		kategoriService.addAltKategori(subCategory);
-		logger.info("{} kategorisi eklendi.", subCategory.getAltKategoriAdi());
+		logger.info("{} altkategorisi eklendi.", subCategory.getAltKategoriAdi());
 		return "redirect:/admin/kategoris/list";
 	}
 	
@@ -73,14 +73,14 @@ public class KategoriController {
 		}
 		
 		kategoriService.addUstKategori(upCategory);
-		logger.info("{} kategorisi eklendi.", upCategory.getUstKategoriAdi());
+		logger.info("{} üstkategorisi eklendi.", upCategory.getUstKategoriAdi());
 		return "redirect:/admin/kategoris/list";
 	}
 	
-	@RequestMapping(value = "/deletealtkatagori/{katagoriID}", method = RequestMethod.GET)
-	public String deleteAltKategori(@PathVariable("altKatagoriID") Integer altKatagoriID) {
-		kategoriService.deleteAltKategori(altKatagoriID);
-		logger.info("{}'ye sahip altkategori kaldırıldı.", altKatagoriID);
+	@RequestMapping(value = "/deletealtkatagori/{altKategoriID}", method = RequestMethod.GET)
+	public String deleteAltKategori(@PathVariable("altKategoriID") Integer altKategoriID) {
+		kategoriService.deleteAltKategori(altKategoriID);
+		logger.info("{}'ye sahip altkategori kaldırıldı.", altKategoriID);
 		return "redirect:/admin/kategoris/list";
 	}
 	
@@ -91,10 +91,10 @@ public class KategoriController {
 		return "redirect:/admin/kategoris/list";
 	}
 	
-	@RequestMapping(value = "/deleteustkatagori/{katagoriID}", method = RequestMethod.GET)
-	public String deleteUstKategori(@PathVariable("ustKatagoriID") Integer ustKatagoriID) {
-		kategoriService.deleteUstKategori(ustKatagoriID);
-		logger.info("{}'ye sahip ustkategori kaldırıldı.", ustKatagoriID);
+	@RequestMapping(value = "/deleteustkatagori/{ustKategoriID}", method = RequestMethod.GET)
+	public String deleteUstKategori(@PathVariable("ustKategoriID") Integer ustKategoriID) {
+		kategoriService.deleteUstKategori(ustKategoriID);
+		logger.info("{}'ye sahip ustkategori kaldırıldı.", ustKategoriID);
 		return "redirect:/admin/kategoris/list";
 	}
 	
@@ -118,7 +118,7 @@ public class KategoriController {
 		}
 		
 		kategoriService.updateKategori(katagori);
-		logger.info("{} altkategorisi güncellendi.", katagori.getKategoriAdi());
+		logger.info("{} kategorisi güncellendi.", katagori.getKategoriAdi());
 		return "redirect:/admin/kategoris/list";
 	}
 	
@@ -130,7 +130,7 @@ public class KategoriController {
 		}
 		
 		kategoriService.updateUstKategori(ustKatagori);
-		logger.info("{} altkategorisi güncellendi.", ustKatagori.getUstKategoriAdi());
+		logger.info("{} üstkategorisi güncellendi.", ustKatagori.getUstKategoriAdi());
 		return "redirect:/admin/kategoris/list";
 	}
 

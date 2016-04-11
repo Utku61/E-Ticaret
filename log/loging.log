@@ -1,9 +1,1 @@
-2016-04-11 02:21:20,874 WARN com.mchange.v2.c3p0.management.ActiveManagementCoordinator:68 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] A C3P0Registry mbean is already registered. This probably means that an application using c3p0 was undeployed, but not all PooledDataSources were closed prior to undeployment. This may lead to resource leaks over time. Please take care to close all PooledDataSources.
-2016-04-11 02:21:25,023 INFO com.kbhkn.eticaret.controller.KategoriController:76 [tomcat-http--21] Test6 kategorisi eklendi.
-2016-04-11 02:21:25,081 INFO com.kbhkn.eticaret.controller.KategoriController:39 [tomcat-http--22] Tüm Kategoriler listelendi.
-2016-04-11 02:21:34,962 INFO com.kbhkn.eticaret.controller.KategoriController:63 [tomcat-http--24] Hakan kategorisi eklendi.
-2016-04-11 02:21:35,042 INFO com.kbhkn.eticaret.controller.KategoriController:39 [tomcat-http--25] Tüm Kategoriler listelendi.
-2016-04-11 02:21:41,995 INFO com.kbhkn.eticaret.controller.KategoriController:63 [tomcat-http--26] TTest kategorisi eklendi.
-2016-04-11 02:21:42,025 INFO com.kbhkn.eticaret.controller.KategoriController:39 [tomcat-http--28] Tüm Kategoriler listelendi.
-2016-04-11 02:21:45,251 INFO com.kbhkn.eticaret.controller.KategoriController:52 [tomcat-http--29] Tas kategorisi eklendi.
-2016-04-11 02:21:45,274 INFO com.kbhkn.eticaret.controller.KategoriController:39 [tomcat-http--30] Tüm Kategoriler listelendi.
+2016-04-11 20:37:23,210 WARN com.mchange.v2.c3p0.management.ActiveManagementCoordinator:68 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] A C3P0Registry mbean is already registered. This probably means that an application using c3p0 was undeployed, but not all PooledDataSources were closed prior to undeployment. This may lead to resource leaks over time. Please take care to close all PooledDataSources.

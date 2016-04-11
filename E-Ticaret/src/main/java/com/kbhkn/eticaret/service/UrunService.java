@@ -13,7 +13,7 @@ public interface UrunService {
 
 	public void deleteUrun(Integer urunId);
 	
-	public byte[] getImageByUrunId(Integer urunId);
+	public String getImageByUrunId(Integer urunId);
 	
 	public List<Urun> getUrunByKategoriId(Integer kategoriId);
 	

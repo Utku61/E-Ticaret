@@ -37,7 +37,7 @@ public class UrunServiceImpl implements UrunService {
 	}
 	
 	@Transactional
-	public byte[] getImageByUrunId(Integer urunId) {
+	public String getImageByUrunId(Integer urunId) {
 		return urunDao.getImageByUrunId(urunId);
 	}
 	

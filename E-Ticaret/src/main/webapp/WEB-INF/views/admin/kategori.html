@@ -77,7 +77,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Yeni Kategori Adı</label>
 										<div class="col-lg-5">
-											<input type="text" th:field="*{altKategoriAdi}" />
+											<input type="text" class="form-control" th:field="*{altKategoriAdi}" />
 										</div>
 									</div>
 									<div class="form-group">
@@ -118,7 +118,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Yeni Kategori Adı</label>
 										<div class="col-lg-5">
-											<input type="text" th:field="*{kategoriAdi}" />
+											<input type="text" class="form-control" th:field="*{kategoriAdi}" />
 										</div>
 									</div>
 									<div class="form-group">
@@ -151,7 +151,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Yeni Kategori Adı</label>
 										<div class="col-lg-5">
-											<input type="text" th:field="*{ustKategoriAdi}" />
+											<input type="text" class="form-control" th:field="*{ustKategoriAdi}" />
 										</div>
 									</div>
 									<div class="form-group">
@@ -169,27 +169,27 @@
 			
 			<div class="col-lg-12">
 				<div class="page-header" style="margin-top: -8px">
-					<h1 style="color: #000000;">Tüm Kargo Şirketleri</h1>
+					<h1 style="color: #000000;">Tüm Alt Kategoririler</h1>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
 						<table class="footable table table-bordered toggle-circle">
 							<thead>
 								<tr>
-									<th>Kargo ID</th>
-									<th>Kargo Adı</th>
-									<th>Kargo Açıklaması</th>
+									<th>Alt Kategori ID</th>
+									<th>Alt Kategori Adı</th>
+									<th>Bir Üst Kategori Adı</th>
 								</tr>
 							</thead>
-<!-- 								<tbody th:each="kargo : ${allKargos}"> -->
-<!-- 									<tr> -->
-<!-- 										<td th:text="${kargo.kargoID}"></td> -->
-<!-- 										<td th:text="${kargo.ad}"></td> -->
-<!-- 										<td th:text="${kargo.aciklama}"></td> -->
-<!-- 										<td><a href="#" data-toggle="modal" data-target="#EditKargoModal" class="btn btn-primary" th:attr="data-kargo-no=${kargo.kargoID},data-kargo-aciklama=${kargo.aciklama},data-kargo-ad=${kargo.ad}"> Değiştir <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i></a></td> -->
-<!-- 										<td><a href="#" th:attr="data-href='deletekargo/'+${kargo.kargoID}" data-toggle="modal" data-target="#deleteKargoModal" class="btn btn-danger">Sil<i class="glyphicon glyphicon-trash"></i></a></td> -->
-<!-- 									</tr> -->
-<!-- 							</tbody> -->
+								<tbody th:each="altKategori : ${allAltKategoris}">
+									<tr>
+										<td th:text="${altKategori.altKategoriID}"></td>
+										<td th:text="${altKategori.altKategoriAdi}"></td>
+										<td th:text="${altKategori.kategori.kategoriAdi}"></td>
+										<td><a href="#" data-toggle="modal" data-target="#EditAltKategoriModal" class="btn btn-primary" th:attr="data-altkategori-no=${altKategori.altKategoriID},data-altkategori-ad=${altKategori.altKategoriAdi}"> Değiştir <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i></a></td>
+										<td><a href="#" th:attr="data-href='deletealtkatagori/'+${altKategori.altKategoriID}" data-toggle="modal" data-target="#deleteKategoriModal" class="btn btn-danger">Sil<i class="glyphicon glyphicon-trash"></i></a></td>
+									</tr>
+							</tbody>
 
 							<tfoot>
 								<tr>
@@ -203,28 +203,110 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="col-lg-12">
+				<div class="page-header" style="margin-top: -8px">
+					<h1 style="color: #000000;">Kategoririler</h1>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<table class="footable table table-bordered toggle-circle">
+							<thead>
+								<tr>
+									<th>Kategori ID</th>
+									<th>Kategori Adı</th>
+									<th>Üst Kategori Adı</th>
+								</tr>
+							</thead>
+								<tbody th:each="kategori : ${allKategoris}">
+									<tr>
+										<td th:text="${kategori.kategoriID}"></td>
+										<td th:text="${kategori.kategoriAdi}"></td>
+										<td th:text="${kategori.ustKategori.ustKategoriAdi}"></td>
+										<td><a href="#" data-toggle="modal" data-target="#EditKategoriModal" class="btn btn-primary" th:attr="data-kategori-no=${kategori.kategoriID},data-kategori-ad=${kategori.kategoriAdi}"> Değiştir <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i></a></td>
+										<td><a href="#" th:attr="data-href='deletekatagori/'+${kategori.kategoriID}" data-toggle="modal" data-target="#deleteKategoriModal" class="btn btn-danger">Sil<i class="glyphicon glyphicon-trash"></i></a></td>
+									</tr>
+							</tbody>
 
+							<tfoot>
+								<tr>
+									<td colspan="10">
+										<div class="pagination pagination-centered hide-if-no-paging"></div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-12">
+				<div class="page-header" style="margin-top: -8px">
+					<h1 style="color: #000000;">Tüm Üst Kategoriler</h1>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<table class="footable table table-bordered toggle-circle">
+							<thead>
+								<tr>
+									<th>Üst Kategori ID</th>
+									<th>Üst Kategori Adı</th>
+								</tr>
+							</thead>
+								<tbody th:each="ustKategori : ${allUstKategoris}">
+									<tr>
+										<td th:text="${ustKategori.ustKategoriID}"></td>
+										<td th:text="${ustKategori.ustKategoriAdi}"></td>
+										<td><a href="#" data-toggle="modal" data-target="#EditUstKategoriModal" class="btn btn-primary" th:attr="data-ustkategori-no=${ustKategori.ustKategoriID},data-ustkategori-ad=${ustKategori.ustKategoriAdi}"> Değiştir <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i></a></td>
+										<td><a href="#" th:attr="data-href='deleteustkatagori/'+${ustKategori.ustKategoriID}" data-toggle="modal" data-target="#deleteKategoriModal" class="btn btn-danger">Sil<i class="glyphicon glyphicon-trash"></i></a></td>
+									</tr>
+							</tbody>
+
+							<tfoot>
+								<tr>
+									<td colspan="10">
+										<div class="pagination pagination-centered hide-if-no-paging"></div>
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="modal fade" id="EditKategoriModal" tabindex="-1"
+		
+		<div class="modal fade" id="EditAltKategoriModal" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Kategori Adını Güncelle</h4>
+						<h4 class="modal-title">AltKategori Güncelle</h4>
 					</div>
 
 					<div class="modal-body">
 						<form th:action="@{/admin/kategoris/altkatagoriguncelle}" th:object="${subCategory}" method="post" class="form-horizontal">
 							<div class="form-group">
 								<div class="col-lg-5">
-									<input type="hidden" th:field="*{altKategoriID}" />
+									<input type="hidden" class="form-control" th:field="*{altKategoriID}" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Yeni Kategori Adı</label>
 								<div class="col-lg-5">
-									<input type="text" th:field="*{altKategoriAdi}" />
+									<input type="text" class="form-control" th:field="*{altKategoriAdi}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Geçiş Kategorisi</label>
+								<div class="col-lg-5">
+									<select class="form-control" th:field="*{{kategori.kategoriID}}">
+										<option th:each="kategori : ${allKategoris}"
+											th:value="${kategori.kategoriID}"
+											th:text="${kategori.kategoriAdi}">Kategori</option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -238,6 +320,84 @@
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="EditKategoriModal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Kategori Güncelle</h4>
+					</div>
+
+					<div class="modal-body">
+						<form th:action="@{/admin/kategoris/katagoriguncelle}" th:object="${category}" method="post" class="form-horizontal">
+							<div class="form-group">
+								<div class="col-lg-5">
+									<input type="hidden" class="form-control" th:field="*{kategoriID}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Yeni Kategori Adı</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" th:field="*{kategoriAdi}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Üst Kategorisi</label>
+								<div class="col-lg-5">
+									<select class="form-control" th:field="*{{ustKategori.ustKategoriID}}">
+										<option th:each="ustkategori : ${allUstKategoris}"
+											th:value="${ustkategori.ustKategoriID}"
+											th:text="${ustkategori.ustKategoriAdi}">ÜstKategori</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-5 col-lg-offset-3">
+									<input type="submit" class="form-control btn btn-warning"
+										value="Güncelle" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="EditUstKategoriModal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">ÜstKategori Güncelle</h4>
+					</div>
+
+					<div class="modal-body">
+						<form th:action="@{/admin/kategoris/ustkatagoriguncelle}" th:object="${upCategory}" method="post" class="form-horizontal">
+							<div class="form-group">
+								<div class="col-lg-5">
+									<input type="hidden" class="form-control" th:field="*{ustKategoriID}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Yeni Kategori Adı</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" th:field="*{ustKategoriAdi}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-5 col-lg-offset-3">
+									<input type="submit" class="form-control btn btn-warning"
+										value="Güncelle" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		<div class="modal fade" id="deleteKategoriModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">

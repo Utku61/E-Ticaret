@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
-	$("#deleteKatagoriModal").on('show.bs.modal',function(e){
-		$(this).find('#btnDeleteKatagori').attr('href',$(e.relatedTarget).data('href'));
+	$("#deleteKategoriModal").on('show.bs.modal',function(e){
+		$(this).find('#btnDeleteKategori').attr('href',$(e.relatedTarget).data('href'));
 	});
 	
 	$("#deleteKargoModal").on('show.bs.modal',function(e){
@@ -56,15 +56,19 @@ $(document).ready(function(){
 		$(this).find('#aciklama').val($(e.relatedTarget).data('kargo-aciklama'));
 	});
 	
-	$("#EditKatagoriModal").on('show.bs.modal',function(e){
-		$(this).find('#katagoriID').val($(e.relatedTarget).data('katagori-no'));
-		$(this).find('#katagoriAd').val($(e.relatedTarget).data('katagori-ad'));
+	$("#EditAltKategoriModal").on('show.bs.modal',function(e){
+		$(this).find('#altKategoriID').val($(e.relatedTarget).data('altkategori-no'));
+		$(this).find('#altKategoriAdi').val($(e.relatedTarget).data('altkategori-ad'));
 	});
 	
-	$("#EditMarkaModal").on('show.bs.modal',function(e){
-		$(this).find('#markaID').val($(e.relatedTarget).data('marka-no'));
-		$(this).find('#markaAdi').val($(e.relatedTarget).data('marka-ad'));
-		$(this).find('#markaAciklama').val($(e.relatedTarget).data('marka-aciklama'));
+	$("#EditKategoriModal").on('show.bs.modal',function(e){
+		$(this).find('#kategoriID').val($(e.relatedTarget).data('kategori-no'));
+		$(this).find('#kategoriAdi').val($(e.relatedTarget).data('kategori-ad'));
+	});
+	
+	$("#EditUstKategoriModal").on('show.bs.modal',function(e){
+		$(this).find('#ustKategoriID').val($(e.relatedTarget).data('ustkategori-no'));
+		$(this).find('#ustKategoriAdi').val($(e.relatedTarget).data('ustkategori-ad'));
 	});
 	
 	$("#EditOdemeModal").on('show.bs.modal',function(e){
@@ -84,10 +88,10 @@ $(document).ready(function(){
 	
 	$("#EditUrunModal").on('show.bs.modal',function(e){
 		$(this).find('#urunID').val($(e.relatedTarget).data('urun-no'));
-		$(this).find('#ad').val($(e.relatedTarget).data('urun-ad'));
+		$(this).find('#urunAdi').val($(e.relatedTarget).data('urun-ad'));
 		$(this).find('#aciklama').val($(e.relatedTarget).data('urun-aciklama'));
 		$(this).find('#fiyat').val($(e.relatedTarget).data('urun-fiyat'));
-		$(this).find('#stok').val($(e.relatedTarget).data('urun-stok'));
+		$(this).find('#stokMiktar').val($(e.relatedTarget).data('urun-stok'));
 	});
 	
 	$("#EditYetkiModal").on('show.bs.modal',function(e){

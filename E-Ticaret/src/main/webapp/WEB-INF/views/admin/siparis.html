@@ -50,54 +50,45 @@
 		</div>
 	</nav>
 </div>
-<div id="page-wrapper" class="container">
+	<div id="page-wrapper" class="container">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-header" style="margin-top: -8px">
-					<h1 style="color: #000000;">Yeni Ödeme Seçeneği Ekleme</h1>
+					<h1 style="color: #000000;">Siparişler</h1>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									<strong>Ödeme Seçeneği Ekle</strong>
-								</h3>
-							</div>
-							<div class="panel-body">
-								<form th:action="@{/admin/odemeseceneks/new}" th:object="${odemeSecenek}" method="post">
-									<div class="form-group">
-										<label class="col-lg-3 control-label">Ödeme Seçeneği Adı</label>
-										<div class="col-lg-5">
-											<input type="text" class="form-control" th:field="*{OdemeTipi}" />
-											<input type="submit" class="btn btn-success" value="EKLE" />
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-12">
-				<div class="page-header" style="margin-top: -8px">
-					<h1 style="color: #000000;">Tüm Ödeme Seçenekleri</h1>
-				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<table class="footable table table-bordered toggle-circle" id="derslikler">
+						<table class="footable table table-bordered toggle-circle">
 							<thead>
 								<tr>
-									<th>ÖdemeSeçenek ID</th>
-									<th>Ödeme Seçenek Tipi</th>
+									<th>Durum</th>
+									<th>Adı- Soyadı</th>
+									<th>UrunAdi</th>
+									<th>Adet</th>
+									<th>Fiyat</th>
+									<th>OdemeTipi</th>
+									<th>Kargo Şirketi</th>
+									<th>Veriliş Tarihi</th>
+									<th>Tahmini teslim Tarihi</th>
+									<th>Teslim Edilecek Adres</th>
+									<td data-sort-ignore="true"></td>
+									<td data-sort-ignore="true"></td>
 								</tr>
 							</thead>
-								<tbody th:each="otipi : ${allOdemeSeceneks}">
+								<tbody th:each="siparis : ${allSipariss}">
 									<tr>
-										<td th:text="${otipi.odemeSecenekID}"></td>
-										<td th:text="${otipi.odemeTipi}"></td>
-										<td><a href="#" data-toggle="modal" data-target="#EditOdemeModal" class="btn btn-primary" th:attr="data-odeme-no=${otipi.odemeSecenekID},data-odeme-ad=${otipi.odemeTipi}"> Değiştir <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i></a></td>
-										<td><a href="#" th:attr="data-href='deleteodemesecenegi/'+${otipi.odemeSecenekID}" data-toggle="modal" data-target="#deleteOdemeModal" class="btn btn-danger">Sil<i class="glyphicon glyphicon-trash"></i></a></td>
+										<td th:text="${siparis.siparisDurum.durum}"></td>
+										<td th:text="${siparis.musteri.ad} - ${siparis.musteri.soyad}"></td>
+										<td th:text="${siparis.urun.urunAdi}"></td>
+										<td th:text="${siparis.adet}"></td>
+										<td th:text="${siparis.fiyat}"></td>
+										<td th:text="${siparis.odemeSecenek.odemeTipi}"></td>
+										<td th:text="${siparis.kargo.ad}"></td>
+										<td th:text="${siparis.verilisTarihi}"></td>
+										<td th:text="${siparis.teslimTarihi}"></td>
+										<td th:text="${siparis.teslimEdilecekAdres}"></td>
+										<td><a href="#" data-toggle="modal" data-target="#EditSiparisModal" class="btn btn-primary" th:attr="data-siparis-no=${siparis.siparisID},data-siparis-teslimtarihi=${siparis.teslimTarihi}"> Değiştir <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i></a></td>
+										<td><a href="#" th:attr="data-href='deletesiparis/'+${siparis.siparisID}" data-toggle="modal" data-target="#deleteSiparisModal" class="btn btn-danger">Sil<i class="glyphicon glyphicon-trash"></i></a></td>
 									</tr>
 							</tbody>
 
@@ -109,32 +100,49 @@
 								</tr>
 							</tfoot>
 						</table>
-
 					</div>
 				</div>
 			</div>
-
 		</div>
-		<div class="modal fade" id="EditOdemeModal" tabindex="-1"
-			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal fade" id="EditSiparisModal" tabindex="-1"
+			role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">ÖdemeTipi Adını Güncelle</h4>
+						<h4 class="modal-title">Sipariş Bilgilerini Güncelle</h4>
 					</div>
-
 					<div class="modal-body">
-						<form th:action="@{/admin/odemeseceneks/odemesecenekguncelleme}" th:object="${odemeSecenek}" method="post" class="form-horizontal">
+						<form th:action="@{/admin/siparis/siparisguncelle}" th:object="${siparis}" method="post" class="form-horizontal">
 							<div class="form-group">
 								<div class="col-lg-5">
-									<input type="hidden" class="form-control" th:field="*{odemeSecenekID}" />
+									<input type="hidden" class="form-control" th:field="*{siparisID}" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-3 control-label">Yeni Ad</label>
+								<label class="col-lg-3 control-label">Sipariş Durumu</label>
 								<div class="col-lg-5">
-									<input type="text" class="form-control" th:field="*{odemeTipi}" />
+									<select class="form-control" th:field="*{{siparisDurum.siparisDurumID}}">
+										<option th:each="sdurum : ${allSiparisDurums}"
+											th:value="${sdurum.siparisDurumID}"
+											th:text="${sdurum.durum}">SDurum Yüklenemedi!</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Kargo Şirketi</label>
+								<div class="col-lg-5">
+									<select class="form-control" th:field="*{{kargo.kargoID}}">
+										<option th:each="kargo : ${allKargos}"
+											th:value="${kargo.kargoID}"
+											th:text="${kargo.ad}">Kargolar Yüklenemedi!</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Ürün Adı</label>
+								<div class="col-lg-5">
+									<input type="date" class="form-control" name="teslimTarihi" th:value="${#dates.format(date, 'dd/MM/yyyy HH:mm')}"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -148,7 +156,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="deleteOdemeModal" tabindex="-1" role="dialog"
+		<div class="modal fade" id="deleteSiparisModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -159,7 +167,7 @@
 
 					<div class="modal-body">
 						<p class="bg-danger"><b>Silme işlemini onaylıyor musunuz?</b></p>
-						<a href="#" class="btn btn-danger btn-lg" id="btnDeleteOdeme">Onayla</a>
+						<a href="#" class="btn btn-danger btn-lg" id="btnDeleteSiparis">Onayla</a>
 					</div>
 				</div>
 			</div>

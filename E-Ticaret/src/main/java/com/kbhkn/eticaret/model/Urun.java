@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,9 +31,8 @@ public class Urun implements Serializable {
 	@Column(name="Fiyat", nullable=false)
 	private double fiyat;
 
-	@Lob
 	@Column(name="Resim", nullable=false)
-	private byte[] resim;
+	private String resim;
 
 	@Column(name="StokMiktar", nullable=false)
 	private int stokMiktar;
@@ -76,11 +74,11 @@ public class Urun implements Serializable {
 		this.fiyat = fiyat;
 	}
 
-	public byte[] getResim() {
+	public String getResim() {
 		return this.resim;
 	}
 
-	public void setResim(byte[] resim) {
+	public void setResim(String resim) {
 		this.resim = resim;
 	}
 
@@ -118,8 +116,7 @@ public class Urun implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Urun [urunID=" + urunID + ", aciklama=" + aciklama + ", fiyat=" + fiyat + ", resim="
-				 + ", stokMiktar=" + stokMiktar + ", urunAdi=" + urunAdi + ", siparis="
-				+ siparis + ", altkatagori=" + altKategori.toString() + "]";
+		return "Urun [urunID=" + urunID + ", aciklama=" + aciklama + ", fiyat=" + fiyat + ", resim=" + resim
+				+ ", stokMiktar=" + stokMiktar + ", urunAdi=" + urunAdi + ", altKategori=" + altKategori + "]";
 	}
 }

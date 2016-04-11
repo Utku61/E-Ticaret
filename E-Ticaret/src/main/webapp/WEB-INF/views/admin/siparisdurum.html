@@ -69,7 +69,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Durum Adı</label>
 										<div class="col-lg-5">
-											<input type="text" th:field="*{durum}" />
+											<input type="text" class="form-control" th:field="*{durum}" />
 											<input type="submit" class="btn btn-success" value="EKLE" />
 										</div>
 									</div>
@@ -128,13 +128,13 @@
 						<form th:action="@{/admin/siparisdurums/siparisdurumguncelle}" th:object="${siparisDurum}" method="post" class="form-horizontal">
 							<div class="form-group">
 								<div class="col-lg-5">
-									<input type="hidden" th:field="*{siparisDurumID}" />
+									<input type="hidden" class="form-control" th:field="*{siparisDurumID}" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Yeni Ad</label>
 								<div class="col-lg-5">
-									<input type="text" th:field="*{durum}" />
+									<input type="text" class="form-control" th:field="*{durum}" />
 								</div>
 							</div>
 							<div class="form-group">

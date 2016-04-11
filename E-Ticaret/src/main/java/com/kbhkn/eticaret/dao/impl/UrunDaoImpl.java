@@ -44,8 +44,8 @@ public class UrunDaoImpl implements UrunDAO {
 	}
 	
 	@Override
-	public byte[] getImageByUrunId(Integer urunId) {
-		byte resim[] = getUrunById(urunId).getResim();
+	public String getImageByUrunId(Integer urunId) {
+		String resim = getUrunById(urunId).getResim();
 		return (resim == null) ? null : resim;
 	}
 	

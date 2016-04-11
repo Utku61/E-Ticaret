@@ -69,7 +69,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Yetki Adı</label>
 										<div class="col-lg-5">
-											<input type="text" th:field="*{yetkiAdi}" />
+											<input type="text" class="form-control" th:field="*{yetkiAdi}" />
 											<input type="submit" class="btn btn-success" value="EKLE" />
 										</div>
 									</div>
@@ -128,13 +128,13 @@
 						<form th:action="@{/admin/yetkis/yetkiguncelle}" th:object="${yetki}" method="post" class="form-horizontal">
 							<div class="form-group">
 								<div class="col-lg-5">
-									<input type="hidden" th:field="*{yetkiNo}" />
+									<input type="hidden" class="form-control" th:field="*{yetkiNo}" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Yeni Yetki Adı</label>
 								<div class="col-lg-5">
-									<input type="text" th:field="*{yetkiAdi}" />
+									<input type="text" class="form-control" th:field="*{yetkiAdi}" />
 								</div>
 							</div>
 							<div class="form-group">

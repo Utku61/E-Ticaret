@@ -54,28 +54,70 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-header" style="margin-top: -8px">
-					<h1 style="color: #000000;">Yeni Kargo Ekleme</h1>
+					<h1 style="color: #000000;">Yeni Ürün Ekleme</h1>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h3 class="panel-title">
-									<strong>Kargo Ekle</strong>
+									<strong>Ürün Ekle</strong>
 								</h3>
 							</div>
 							<div class="panel-body">
-								<form th:action="@{/admin/kargos/new}" th:object="${kargo}" method="post" class="form-horizontal">
+								<form th:action="@{/admin/uruns/new}" th:object="${urun}" method="post" enctype="multipart/form-data" class="form-horizontal">
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Kargo Adı</label>
+										<label class="col-lg-3 control-label">Üst Kategorisi</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" th:field="*{ad}" />
+											<select class="form-control" name="ustKategoriID">
+               									<option th:each="kategori : ${allUstKategoris}" th:value="${kategori.ustKategoriID}" th:text="${kategori.ustKategoriAdi}">Kategori</option>
+											</select>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-lg-3 control-label">Açıklaması</label>
+										<label class="col-lg-3 control-label">Kategorisi</label>
+										<div class="col-lg-5">
+											<select class="form-control" name="kategoriID">
+               									<option th:each="kategori : ${allKategoris}" th:value="${kategori.kategoriID}" th:text="${kategori.kategoriAdi}">Kategori</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Alt Kategorisi</label>
+										<div class="col-lg-5">
+											<select class="form-control" th:field="*{{altKategori.altKategoriID}}">
+               									<option th:each="kategori : ${allAltKategoris}" th:value="${kategori.altKategoriID}" th:text="${kategori.altKategoriAdi}">Kategori</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Ürün Adı</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" th:field="*{urunAdi}" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Açıklama</label>
 										<div class="col-lg-5">
 											<input type="text" class="form-control" th:field="*{aciklama}" /><br/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Fiyat</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" th:field="*{fiyat}" /><br/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Stok Miktarı</label>
+										<div class="col-lg-5">
+											<input type="text" class="form-control" th:field="*{stokMiktar}" /><br/>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-lg-3 control-label">Ürünün Resmi</label>
+										<div class ="col-lg-5">
+											<input type="file" name="file"/><br/>
 										</div>
 									</div>
 									<div class="form-group">
@@ -92,25 +134,33 @@
 			</div>
 			<div class="col-lg-12">
 				<div class="page-header" style="margin-top: -8px">
-					<h1 style="color: #000000;">Tüm Kargo Şirketleri</h1>
+					<h1 style="color: #000000;">Tüm Ürünler</h1>
 				</div>
 				<div class="row">
 					<div class="col-lg-12">
 						<table class="footable table table-bordered toggle-circle">
 							<thead>
 								<tr>
-									<th>Kargo ID</th>
-									<th>Kargo Adı</th>
-									<th>Kargo Açıklaması</th>
+									<th>Katagorisi</th>
+									<th>Adı</th>
+									<th>Açıklaması</th>
+									<th>Birim Fiyatı</th>
+									<th>Stok Miktarı</th>
+									<th>Resim</th>
+									<td data-sort-ignore="true"></td>
+									<td data-sort-ignore="true"></td>
 								</tr>
 							</thead>
-								<tbody th:each="kargo : ${allKargos}">
+								<tbody th:each="urun : ${allUruns}">
 									<tr>
-										<td th:text="${kargo.kargoID}"></td>
-										<td th:text="${kargo.ad}"></td>
-										<td th:text="${kargo.aciklama}"></td>
-										<td><a href="#" data-toggle="modal" data-target="#EditKargoModal" class="btn btn-primary" th:attr="data-kargo-no=${kargo.kargoID},data-kargo-aciklama=${kargo.aciklama},data-kargo-ad=${kargo.ad}"> Değiştir <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i></a></td>
-										<td><a href="#" th:attr="data-href='deletekargo/'+${kargo.kargoID}" data-toggle="modal" data-target="#deleteKargoModal" class="btn btn-danger">Sil<i class="glyphicon glyphicon-trash"></i></a></td>
+										<td th:text="${urun.altKategori.altKategoriAdi}"></td>
+										<td th:text="${urun.urunAdi}"></td>
+										<td th:text="${urun.aciklama}"></td>
+										<td th:text="${urun.fiyat}"></td>
+										<td th:text="${urun.stokMiktar}"></td>
+										<td><img alt="" th:src="'../../resources/images/'+${urun.resim}" style="width: 120px; height: 150px;"/></td>
+										<td><a href="#" data-toggle="modal" data-target="#EditUrunModal" class="btn btn-primary" th:attr="data-urun-no=${urun.urunID},data-urun-aciklama=${urun.aciklama},data-urun-ad=${urun.urunAdi},data-urun-fiyat=${urun.fiyat},data-urun-stok=${urun.stokMiktar}"> Değiştir <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i></a></td>
+										<td><a href="#" th:attr="data-href='deleteurun/'+${urun.urunID}" data-toggle="modal" data-target="#deleteUrunModal" class="btn btn-danger">Sil<i class="glyphicon glyphicon-trash"></i></a></td>
 									</tr>
 							</tbody>
 
@@ -128,32 +178,53 @@
 			</div>
 
 		</div>
-		<div class="modal fade" id="EditKargoModal" tabindex="-1"
+		<div class="modal fade" id="EditUrunModal" tabindex="-1"
 			role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Kargo Adını Güncelle</h4>
+						<h4 class="modal-title">Ürün Adını Güncelle</h4>
 					</div>
-
 					<div class="modal-body">
-						<form th:action="@{/admin/kargos/kargoguncelle}" th:object="${kargo}" method="post" class="form-horizontal">
+						<form th:action="@{/admin/uruns/urunguncelle}" th:object="${urun}" method="post" class="form-horizontal">
 							<div class="form-group">
 								<div class="col-lg-5">
-									<input type="hidden" class="form-control" th:field="*{kargoID}" />
+									<input type="hidden" class="form-control" th:field="*{urunID}" />
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-3 control-label">Yeni Kargo Adı</label>
+								<label class="col-lg-3 control-label">Kategorisi</label>
 								<div class="col-lg-5">
-									<input type="text" class="form-control" th:field="*{ad}" />
+									<select class="form-control" th:field="*{{altKategori.altKategoriID}}">
+										<option th:each="kategori : ${allAltKategoris}"
+											th:value="${kategori.altKategoriID}"
+											th:text="${kategori.altKategoriAdi}">Kategori</option>
+									</select>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-lg-3 control-label">Yeni Kargo Açıklaması</label>
+								<label class="col-lg-3 control-label">Ürün Adı</label>
 								<div class="col-lg-5">
-									<input type="text" class="form-control" th:field="*{aciklama}" />
+									<input type="text" class="form-control" th:field="*{urunAdi}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Açıklama</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" th:field="*{aciklama}" /><br />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Fiyat</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" th:field="*{fiyat}" /><br />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Stok Miktarı</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" th:field="*{stokMiktar}" /><br />
 								</div>
 							</div>
 							<div class="form-group">
@@ -167,7 +238,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal fade" id="deleteKargoModal" tabindex="-1" role="dialog"
+		<div class="modal fade" id="deleteUrunModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -178,7 +249,7 @@
 
 					<div class="modal-body">
 						<p class="bg-danger"><b>Silme işlemini onaylıyor musunuz?</b></p>
-						<a href="#" class="btn btn-danger btn-lg" id="btnDeleteKargo">Onayla</a>
+						<a href="#" class="btn btn-danger btn-lg" id="btnDeleteUrun">Onayla</a>
 					</div>
 				</div>
 			</div>
