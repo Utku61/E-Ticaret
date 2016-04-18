@@ -190,6 +190,10 @@ public class Musteri implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Musteri [musteriID=" + musteriID + ", ad=" + ad + ", adres=" + adres + ", cepNo=" + cepNo + ", eposta=" + eposta + ", soyad=" + soyad + "]";
+		return "Musteri [musteriID=" + musteriID + ", ad=" + ad + ", adres=" + adres + ", cepNo=" + cepNo + ", eposta="
+				+ eposta + ", IPAdress=" + IPAdress + ", kayitTarihi=" + kayitTarihi + ", parola=" + parola + ", soyad="
+				+ soyad + ", tcno=" + tcno + ", telefonNo=" + telefonNo + ", sehir=" + sehir + ", siparis=" + siparis
+				+ "]";
 	}
+	
 }

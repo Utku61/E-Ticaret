@@ -46,14 +46,14 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String adminCheck(HttpServletRequest req, ModelMap model, @Valid Admin admin, BindingResult result) {
+	public String adminCheck(ModelMap model, @Valid Admin admin, BindingResult result, HttpSession session) {
 		if (result.hasErrors()) {
 			logger.info("Admin loginde hata! {}", admin.toString());
 			return "admin/login";
 		}
 		Admin kontrol = adminService.getAdminControl(admin.getEposta(), admin.getParola());
 		if(kontrol != null){
-			req.getSession().setAttribute("admin", kontrol);
+			session.setAttribute("admin", kontrol);
 			return "redirect:/admin/index";
 		}
 		return "admin/login";

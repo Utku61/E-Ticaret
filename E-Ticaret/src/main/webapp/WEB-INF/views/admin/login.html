@@ -35,7 +35,7 @@
 										<span class="glyphicon glyphicon-user"></span>
 									</div>
 									<input  th:field="*{eposta}" type="email" class="form-control" placeholder="E-Posta" required="required" autofocus="autofocus"/>
-									<span th:if="${#fields.hasErrors('eposta')}" th:errors="*{eposta}">Name Error</span>
+									<span th:if="${#fields.hasErrors('eposta')}" class="form-control" style="color: red;" th:errors="*{eposta}">Name Error</span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -43,9 +43,8 @@
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-lock"></span>
 									</div>
-									<input th:field="*{parola}" type="password" class="form-control"
-										placeholder="Parola" required="required" autofocus="autofocus" />
-										<span th:if="${#fields.hasErrors('parola')}" th:errors="*{parola}">Name Error</span>
+									<input th:field="*{parola}" type="password" class="form-control" placeholder="Parola" required="required" />
+										<span th:if="${#fields.hasErrors('parola')}" class="form-control" style="color: red;" th:errors="*{parola}">Name Error</span>
 								</div>
 							</div>
 							<button type="submit" class="btn btn-sm btn-primary">Giriş Yap</button>

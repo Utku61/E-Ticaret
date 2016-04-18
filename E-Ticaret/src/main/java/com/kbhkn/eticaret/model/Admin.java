@@ -27,7 +27,6 @@ public class Admin implements Serializable {
 	@Column(name = "AdminID", unique = true, nullable = false)
 	private int adminID;
 	
-	@NotEmpty
 	@Column(name = "Ad", nullable = false, length = 45)
 	private String ad;
 
@@ -37,16 +36,13 @@ public class Admin implements Serializable {
 	private String eposta;
 	
 	@NotNull
-	@Size(min = 1, max = 3)
+	@Size(min = 5, max = 20)
 	@Column(name = "Parola", nullable = false, length = 60)
 	private String parola;
 	
-	@NotNull
 	@Column(name = "Soyad", nullable = false, length = 45)
 	private String soyad;
 	
-	@NotNull
-	@Size(max=11, min = 11)
 	@Column(name = "TCNO", nullable = false, length = 11)
 	private String tcno;
 

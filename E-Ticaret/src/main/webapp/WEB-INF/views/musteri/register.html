@@ -33,31 +33,36 @@
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Adınız</label>
 								<div class="col-lg-5">
-									<input type="text" class="form-control" th:field="*{ad}" required="required" />
+									<input type="text" class="form-control" th:field="*{ad}"  />
+									<span th:if="${#fields.hasErrors('ad')}" class="form-control" style="color: red;" th:errors="*{ad}">Name Error</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Soyadınız</label>
 								<div class="col-lg-5">
 									<input type="text" class="form-control" th:field="*{soyad}" required="required" />
+									<span th:if="${#fields.hasErrors('soyad')}" class="form-control" style="color: red;" th:errors="*{soyad}">Name Error</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">TC Kimlik No</label>
 								<div class="col-lg-5">
-									<input type="text" pattern="^[0-9]{11}" class="form-control" th:field="*{tcno}" required="required" />
+									<input type="text" pattern="^[0-9]{11}" class="form-control" th:field="*{tcno}" />
+									<span th:if="${#fields.hasErrors('tcno')}" class="form-control" style="color: red;" th:errors="*{tcno}">Name Error</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">E-Posta Adresi</label>
 								<div class="col-lg-5">
-									<input type="email" class="form-control" th:field="*{eposta}" required="required" />
+									<input type="email" class="form-control" th:field="*{eposta}" />
+									<span th:if="${#fields.hasErrors('eposta')}" class="form-control" style="color: red;" th:errors="*{eposta}">Name Error</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Parola</label>
 								<div class="col-lg-5">
 									<input type="password" class="form-control" th:field="*{parola}" required="required" />
+									<span th:if="${#fields.hasErrors('parola')}" class="form-control" style="color: red;" th:errors="*{parola}">Name Error</span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -72,18 +77,21 @@
 								<label class="col-lg-3 control-label">Cep No</label>
 								<div class="col-lg-5">
 									<input type="text" class="form-control" th:field="*{cepNo}" required="required" />
+									<span th:if="${#fields.hasErrors('cepNo')}" class="form-control" style="color: red;" th:errors="*{cepNo}">Name Error</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Telefon No</label>
 								<div class="col-lg-5">
 									<input type="text" class="form-control" th:field="*{telefonNo}" />
+									<span th:if="${#fields.hasErrors('telefonNo')}" class="form-control" style="color: red;" th:errors="*{telefonNo}">Name Error</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-lg-3 control-label">Adres</label>
 								<div class="col-lg-5">
 									<input type="text" class="form-control" th:field="*{adres}" required="required" />
+									<span th:if="${#fields.hasErrors('adres')}" class="form-control" style="color: red;" th:errors="*{adres}">Name Error</span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -114,14 +122,13 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						<form role="form" method="post" th:action="@{/musteri/musterilogin}" th:object="${musteri}">
+						<form role="form" method="post" th:action="@{/musteri/musterilogin}">
 							<div class="form-group">
 								<div class="input-group">
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-user"></span>
 									</div>
-									<input  th:field="*{eposta}" type="email" class="form-control" placeholder="E-Posta" autofocus="autofocus"/>
-									<span th:if="${#fields.hasErrors('eposta')}" class="form-control" style="color: red;" th:errors="*{eposta}">Name Error</span>
+									<input name="eposta" type="email" class="form-control" placeholder="E-Posta" autofocus="autofocus"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -129,8 +136,7 @@
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-lock"></span>
 									</div>
-									<input th:field="*{parola}" type="password" class="form-control" placeholder="Parola" required="required" autofocus="autofocus" />
-									<span th:if="${#fields.hasErrors('parola')}" th:errors="*{parola}">Name Error</span>
+									<input name="parola" type="password" class="form-control" placeholder="Parola" required="required" />
 								</div>
 							</div>
 							<button type="submit" class="btn btn-sm btn-primary">Giriş Yap</button>

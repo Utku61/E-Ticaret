@@ -60,31 +60,34 @@ public class MusterilerController {
 		return "musteri/register";
 	}
 	
+	@RequestMapping(value = "/musterilogin", method = RequestMethod.GET)
+	public String redirectRegister(){
+		return "redirect:/musteri/register";
+	}
+	
 	@RequestMapping(value = "/musterilogin", method = RequestMethod.POST)
-	public String loginMusteri(ModelMap model, @Valid Musteri musteri, BindingResult result, HttpSession session) {
-		if (result.hasErrors()) {
-			model.addAttribute("allSehirs", sehirService.getAllSehirs());
-			return "musteri/register";
-		}
-		
-		Musteri loginUser = musteriService.getMusteriControl(musteri.getEposta(), musteri.getParola());
+	public String loginMusteri(ModelMap model, HttpServletRequest request) {
+		Musteri loginUser = musteriService.getMusteriControl(request.getParameter("eposta"), request.getParameter("parola"));
 		if(loginUser != null){
 			ArrayList<Urun> sepet = new ArrayList<Urun>();
-			session.setAttribute("sepet", sepet);
-			session.setAttribute("musteri", loginUser);
+			request.getSession().setAttribute("sepet", sepet);
+			request.getSession().setAttribute("musteri", loginUser);
 			return "redirect:/musteri/index";
 		}else{
 			model.addAttribute("loginStatus", "E-Posta adresiniz veya şifre hatalı");
+			model.addAttribute("musteri", new Musteri());
 			model.addAttribute("allSehirs", sehirService.getAllSehirs());
 			return "musteri/register";
 		}
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String adminLogout(HttpServletRequest req, ModelMap model) {
-		Musteri musteri = (Musteri)req.getSession().getAttribute("musteri");
-		logger.info("Müşteri çıkış yaptı. Tarih:{} , Musteri Bilgileri: {}", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()), musteri.toString());
-		req.getSession().invalidate();
+	public String adminLogout(HttpSession session, ModelMap model) {
+		Object musteri = session.getAttribute("musteri");
+		if(musteri != null){
+			logger.info("Müşteri çıkış yaptı. Tarih:{} , Musteri Bilgileri: {}", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()), musteri.toString());
+			session.invalidate();
+		}
 		return "redirect:/musteri/register";
 	}
 	
@@ -105,9 +108,10 @@ public class MusterilerController {
 		newMusteri.setKayitTarihi(new Date());
 		newMusteri.setIPAdress(com.kbhkn.eticaret.util.IPGetir.getClientRealIpAdress(req));
 		if (result.hasErrors()) {
-			logger.info("Yeni müşteri kaydı sırasında bilgiler eksik yada yanlış girildi! {}", newMusteri.toString());
-			model.addAttribute("kayitStatus", "Lütfen eksik bilgi girmeyiniz!");
-			return "musteri/index";
+			logger.info("Yeni müşteri kaydı sırasında bilgiler eksik yada yanlış girildi: {}", newMusteri.toString());
+			model.addAttribute("kayitStatus", "Lütfen eksik yada yanlış girmeyiniz!");
+			model.addAttribute("allSehirs", sehirService.getAllSehirs());
+			return "musteri/register";
 		}
 		musteriService.addMusteri(newMusteri);
 		logger.info("Yeni müşteri eklendi. ID: {}", newMusteri.getMusteriID());

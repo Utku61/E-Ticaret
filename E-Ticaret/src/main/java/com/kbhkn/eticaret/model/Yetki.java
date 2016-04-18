@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 
 @Entity
 @Table(name="Yetki")
@@ -22,7 +20,6 @@ public class Yetki implements Serializable {
 	@Column(unique=true, nullable=false)
 	private int yetkiNo;
 	
-	@NotEmpty
 	@Column(nullable=false, length=45)
 	private String yetkiAdi;
 
