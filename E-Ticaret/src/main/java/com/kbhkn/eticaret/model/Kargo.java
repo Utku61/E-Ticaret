@@ -3,6 +3,8 @@ package com.kbhkn.eticaret.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.kbhkn.eticaret.model.Siparis;
 
 import java.util.List;
@@ -16,10 +18,12 @@ public class Kargo implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="KargoID", unique=true, nullable=false)
 	private int kargoID;
-
+	
+	@NotEmpty
 	@Column(name="Aciklama", length=45)
 	private String aciklama;
 
+	@NotEmpty
 	@Column(name="Ad", nullable=false, length=45)
 	private String ad;
 

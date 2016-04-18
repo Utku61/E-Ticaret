@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name = "AltKategori")
 public class AltKategori implements Serializable {
@@ -24,10 +26,12 @@ public class AltKategori implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="AltKategoriID")
 	private int altKategoriID;
-
+	
+	@NotEmpty
 	@Column(name="AltKategoriAdi")
 	private String altKategoriAdi;
-
+	
+	@NotEmpty
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="KategoriID")
 	private Kategori kategori;

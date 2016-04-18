@@ -2,6 +2,9 @@ package com.kbhkn.eticaret.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.List;
 
 
@@ -15,6 +18,7 @@ public class Sehir implements Serializable {
 	@Column(name="SehirID", unique=true, nullable=false)
 	private int sehirID;
 
+	@NotEmpty
 	@Column(name="SehirAdi", nullable=false, length=45)
 	private String sehirAdi;
 

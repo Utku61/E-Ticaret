@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name = "UstKategori")
 public class UstKategori implements Serializable {
@@ -22,7 +24,8 @@ public class UstKategori implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="UstKategoriID")
 	private int ustKategoriID;
-
+	
+	@NotEmpty
 	@Column(name="UstKatagoriAdi")
 	private String ustKategoriAdi;
 

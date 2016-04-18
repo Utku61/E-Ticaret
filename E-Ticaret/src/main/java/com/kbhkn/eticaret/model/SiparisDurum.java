@@ -2,6 +2,9 @@ package com.kbhkn.eticaret.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.List;
 
 
@@ -14,7 +17,8 @@ public class SiparisDurum implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="SiparisDurumID", unique=true, nullable=false)
 	private int siparisDurumID;
-
+	
+	@NotEmpty
 	@Column(name="Durum", nullable=false, length=45)
 	private String durum;
 

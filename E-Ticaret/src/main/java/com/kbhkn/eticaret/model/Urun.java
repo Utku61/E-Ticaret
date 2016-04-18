@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name="Urun")
 public class Urun implements Serializable {
@@ -24,19 +26,24 @@ public class Urun implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="UrunID", unique=true, nullable=false)
 	private int urunID;
-
+	
+	@NotEmpty
 	@Column(name="Aciklama", nullable=false, length=45)
 	private String aciklama;
 
+	@NotEmpty
 	@Column(name="Fiyat", nullable=false)
 	private double fiyat;
 
+	@NotEmpty
 	@Column(name="Resim", nullable=false)
 	private String resim;
 
+	@NotEmpty
 	@Column(name="StokMiktar", nullable=false)
 	private int stokMiktar;
 
+	@NotEmpty
 	@Column(name="UrunAdi", nullable=false, length=45)
 	private String urunAdi;
 

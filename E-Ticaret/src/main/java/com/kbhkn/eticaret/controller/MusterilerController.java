@@ -1,6 +1,8 @@
 package com.kbhkn.eticaret.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +22,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kbhkn.eticaret.model.Musteri;
 import com.kbhkn.eticaret.model.Urun;
-import com.kbhkn.eticaret.model.Yetki;
+import com.kbhkn.eticaret.service.KategoriService;
 import com.kbhkn.eticaret.service.MusteriService;
+import com.kbhkn.eticaret.service.SehirService;
 import com.kbhkn.eticaret.service.UrunService;
 
 @Controller
@@ -31,19 +34,37 @@ public class MusterilerController {
 	private static final Logger logger = LoggerFactory.getLogger(MusterilerController.class);
 
 	@Autowired
-	private HttpServletRequest request;
+	private MusteriService musteriService;
 	
 	@Autowired
-	private MusteriService musteriService;
+	private KategoriService kategoriService;
+	
+	@Autowired
+	private SehirService sehirService;
 	
 	@Autowired
 	private UrunService urunService;
 	
+	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
+	public String listUruns(HttpSession session, ModelMap model) {
+		model.addAttribute("kategoriUrun", urunService.getAllUruns());
+		model.addAttribute("allKategoris", kategoriService.getAllKategoris());
+		model.addAttribute("allSehirs", sehirService.getAllSehirs());
+		return "musteri/index";
+	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String musteriKayit(ModelMap model){
+		model.addAttribute("musteri", new Musteri());
+		model.addAttribute("allSehirs", sehirService.getAllSehirs());
+		return "musteri/register";
+	}
+	
 	@RequestMapping(value = "/musterilogin", method = RequestMethod.POST)
-	public String loginMusteri(@Valid Musteri musteri, HttpSession session, BindingResult result, ModelMap model) {
+	public String loginMusteri(ModelMap model, @Valid Musteri musteri, BindingResult result, HttpSession session) {
 		if (result.hasErrors()) {
-			model.addAttribute("kayitStatus", "Lütfen eksik/yanlış bilgi girmeyiniz!");
-			return "musteri/login";
+			model.addAttribute("allSehirs", sehirService.getAllSehirs());
+			return "musteri/register";
 		}
 		
 		Musteri loginUser = musteriService.getMusteriControl(musteri.getEposta(), musteri.getParola());
@@ -51,11 +72,20 @@ public class MusterilerController {
 			ArrayList<Urun> sepet = new ArrayList<Urun>();
 			session.setAttribute("sepet", sepet);
 			session.setAttribute("musteri", loginUser);
-			return "musteri/index";
+			return "redirect:/musteri/index";
 		}else{
-			model.addAttribute("status", "E-Posta adresiniz veya şifre hatalı");
-			return "musteri/login";
+			model.addAttribute("loginStatus", "E-Posta adresiniz veya şifre hatalı");
+			model.addAttribute("allSehirs", sehirService.getAllSehirs());
+			return "musteri/register";
 		}
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String adminLogout(HttpServletRequest req, ModelMap model) {
+		Musteri musteri = (Musteri)req.getSession().getAttribute("musteri");
+		logger.info("Müşteri çıkış yaptı. Tarih:{} , Musteri Bilgileri: {}", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()), musteri.toString());
+		req.getSession().invalidate();
+		return "redirect:/musteri/register";
 	}
 	
 	@RequestMapping(value = "/katagoriUrun", method = RequestMethod.GET)
@@ -70,22 +100,18 @@ public class MusterilerController {
 		return "musteri/index";
 	}
 	
-	@RequestMapping(value = "/kayit", method = RequestMethod.POST)
-	public String addMusteri(@Valid Musteri musteri, HttpSession session, BindingResult result, ModelMap model) {
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	public String addMusteri(@Valid Musteri newMusteri, BindingResult result, HttpServletRequest req,  ModelMap model) {
+		newMusteri.setKayitTarihi(new Date());
+		newMusteri.setIPAdress(com.kbhkn.eticaret.util.IPGetir.getClientRealIpAdress(req));
 		if (result.hasErrors()) {
-			logger.info("Yeni müşteri kaydı sırasında bilgiler eksik yada yanlış girildi!");
+			logger.info("Yeni müşteri kaydı sırasında bilgiler eksik yada yanlış girildi! {}", newMusteri.toString());
 			model.addAttribute("kayitStatus", "Lütfen eksik bilgi girmeyiniz!");
 			return "musteri/index";
 		}
-		
-		musteri.setIPAdress(com.kbhkn.eticaret.util.IPGetir.getClientRealIpAdress(request));
-		musteri.setYetki(new Yetki(2));
-		
-		musteriService.addMusteri(musteri);
-		model.addAttribute("kayitStatus", "Kaydınız başarıyla gerçekleştirilmiştir. Giriş yapabilirsiniz.");
-		logger.info("Yeni müşteri eklendi. ID: {}", musteri.getMusteriID());
-		
-		return "musteri/index";
+		musteriService.addMusteri(newMusteri);
+		logger.info("Yeni müşteri eklendi. ID: {}", newMusteri.getMusteriID());
+		return "redirect:/musteri/index";
 	}
 	
 	@RequestMapping(value = "/parolaguncelle", method = RequestMethod.POST)
@@ -124,5 +150,13 @@ public class MusterilerController {
 
 	public void setUrunService(UrunService urunService) {
 		this.urunService = urunService;
+	}
+
+	public void setKategoriService(KategoriService kategoriService) {
+		this.kategoriService = kategoriService;
+	}
+
+	public void setSehirService(SehirService sehirService) {
+		this.sehirService = sehirService;
 	}
 }

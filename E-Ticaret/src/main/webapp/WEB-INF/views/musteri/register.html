@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>E-Ticaret Müşteri Kayıt Paneli</title>
+<link th:href="@{/resources/css/bootstrap.css}" rel="stylesheet" />
+<link th:href="@{/resources/css/shop-homepage.css}" rel="stylesheet" />
+
+<script th:src="@{/resources/js/jquery.js}"></script>
+<script th:src="@{/resources/js/bootstrap.js}"></script>
+</head>
+<body>
+<div class="col-md-6">
+	<div id="wrapper">
+		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Müşteri Kayıt Paneli</a>
+				</div>
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1"></div>
+			</div>
+		</nav>
+		<div class="row">
+			<div class="col-md-12" style="margin-top: 70px;">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<strong>Müşteri Kayıt Paneli</strong>
+						</h3>
+					</div>
+					<div class="panel-body">
+						<form th:action="@{/musteri/new}" th:object="${musteri}" method="post" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Adınız</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" th:field="*{ad}" required="required" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Soyadınız</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" th:field="*{soyad}" required="required" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">TC Kimlik No</label>
+								<div class="col-lg-5">
+									<input type="text" pattern="^[0-9]{11}" class="form-control" th:field="*{tcno}" required="required" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">E-Posta Adresi</label>
+								<div class="col-lg-5">
+									<input type="email" class="form-control" th:field="*{eposta}" required="required" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Parola</label>
+								<div class="col-lg-5">
+									<input type="password" class="form-control" th:field="*{parola}" required="required" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Şehir</label>
+								<div class="col-lg-5">
+									<select class="form-control" th:field="*{{sehir.sehirID}}">
+               							<option th:each="s : ${allSehirs}" th:value="${s.sehirID}" th:text="${s.sehirAdi}">Kategori</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Cep No</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" th:field="*{cepNo}" required="required" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Telefon No</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" th:field="*{telefonNo}" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-3 control-label">Adres</label>
+								<div class="col-lg-5">
+									<input type="text" class="form-control" th:field="*{adres}" required="required" />
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-lg-5 col-lg-offset-3">
+									<input type="submit" class="form-control btn btn-success" value="Üye Ol"/>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-md-12" th:if="${kayitStatus  != null}">
+					<div class="alert alert-warning alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<strong th:text="${kayitStatus}"></strong>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-md-6">
+	<div class="row">
+			<div class="col-md-12" style="margin-top: 70px;">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<strong>Müşteri Giriş Paneli</strong>
+						</h3>
+					</div>
+					<div class="panel-body">
+						<form role="form" method="post" th:action="@{/musteri/musterilogin}" th:object="${musteri}">
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-user"></span>
+									</div>
+									<input  th:field="*{eposta}" type="email" class="form-control" placeholder="E-Posta" autofocus="autofocus"/>
+									<span th:if="${#fields.hasErrors('eposta')}" class="form-control" style="color: red;" th:errors="*{eposta}">Name Error</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="input-group">
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-lock"></span>
+									</div>
+									<input th:field="*{parola}" type="password" class="form-control" placeholder="Parola" required="required" autofocus="autofocus" />
+									<span th:if="${#fields.hasErrors('parola')}" th:errors="*{parola}">Name Error</span>
+								</div>
+							</div>
+							<button type="submit" class="btn btn-sm btn-primary">Giriş Yap</button>
+						</form>
+					</div>
+				</div>
+				<div class="col-md-12" th:if="${loginStatus != null}">
+					<div class="alert alert-warning alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<strong th:text="${loginStatus}"></strong>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</body>
+</html>

@@ -1,8 +1,15 @@
 package com.kbhkn.eticaret.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
@@ -14,12 +21,10 @@ public class Yetki implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(unique=true, nullable=false)
 	private int yetkiNo;
-
+	
+	@NotEmpty
 	@Column(nullable=false, length=45)
 	private String yetkiAdi;
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "yetki", cascade = CascadeType.ALL)
-	private List<Musteri> musteris;
 
 	public Yetki() {
 		super();

@@ -11,6 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "Admin")
@@ -21,19 +26,27 @@ public class Admin implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "AdminID", unique = true, nullable = false)
 	private int adminID;
-
+	
+	@NotEmpty
 	@Column(name = "Ad", nullable = false, length = 45)
 	private String ad;
 
+	@NotEmpty
+	@Email
 	@Column(name = "Eposta", nullable = false, length = 65)
 	private String eposta;
-
+	
+	@NotNull
+	@Size(min = 1, max = 3)
 	@Column(name = "Parola", nullable = false, length = 60)
 	private String parola;
-
+	
+	@NotNull
 	@Column(name = "Soyad", nullable = false, length = 45)
 	private String soyad;
-
+	
+	@NotNull
+	@Size(max=11, min = 11)
 	@Column(name = "TCNO", nullable = false, length = 11)
 	private String tcno;
 
