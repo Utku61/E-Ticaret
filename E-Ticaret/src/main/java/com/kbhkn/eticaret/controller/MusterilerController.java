@@ -85,7 +85,7 @@ public class MusterilerController {
 	public String adminLogout(HttpSession session, ModelMap model) {
 		Object musteri = session.getAttribute("musteri");
 		if(musteri != null){
-			logger.info("Müşteri çıkış yaptı. Tarih:{} , Musteri Bilgileri: {}", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()), musteri.toString());
+			logger.info("Müşteri çıkış yaptı. Tarih:{} , Musteri Bilgileri: {}", new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date()), ((Musteri)musteri).toString());
 			session.invalidate();
 		}
 		return "redirect:/musteri/register";
