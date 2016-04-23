@@ -47,9 +47,10 @@ public class MusterilerController {
 	
 	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
 	public String listUruns(HttpSession session, ModelMap model) {
-		model.addAttribute("kategoriUrun", urunService.getAllUruns());
-		model.addAttribute("allKategoris", kategoriService.getAllKategoris());
+		model.addAttribute("urunler", urunService.getAllUruns());
+		model.addAttribute("allUstKategoris", kategoriService.getAllUstKategoris());
 		model.addAttribute("allSehirs", sehirService.getAllSehirs());
+		model.addAttribute("kategoriService",kategoriService);
 		return "musteri/index";
 	}
 	
@@ -91,14 +92,56 @@ public class MusterilerController {
 		return "redirect:/musteri/register";
 	}
 	
-	@RequestMapping(value = "/katagoriUrun", method = RequestMethod.GET)
-	public String listAllKategoris(HttpSession session, ModelMap model, @PathVariable("katagoriID") Integer katagoriID) {
-		List<Urun> uruns = urunService.getUrunByKategoriId(katagoriID);
+	@RequestMapping(value = "/altKatagoriUrun/{altKategoriID}", method = RequestMethod.GET)
+	public String listAltKategoris(@PathVariable("altKategoriID") Integer altKategoriID, ModelMap model) {
+		List<Urun> uruns = urunService.getUrunByAltKategoriId(altKategoriID);
+		
+		model.addAttribute("allUstKategoris", kategoriService.getAllUstKategoris());
+		model.addAttribute("kategoriService",kategoriService);
+		
 		if(uruns.isEmpty()){
 			model.addAttribute("message","Bu katagoride ürün bulunmamaktadır.");
-			logger.info("{} nolu kategoride ürünün olmadığı tespit edildi!", katagoriID);
+			logger.info("{} nolu kategoride ürünün olmadığı tespit edildi!", altKategoriID);
+			return "musteri/index";
 		}
-		model.addAttribute("allKategoris", uruns);
+		
+		model.addAttribute("urunler", uruns);
+		logger.info("Ürüne göre kategoriler listelendi.");
+		return "musteri/index";
+	}
+	
+	@RequestMapping(value = "/katagoriUrun/{kategoriID}", method = RequestMethod.GET)
+	public String listKategoris(@PathVariable("kategoriID") Integer kategoriID, ModelMap model) {
+		List<Urun> uruns = urunService.getUrunByKategoriId(kategoriID);
+		
+		model.addAttribute("allUstKategoris", kategoriService.getAllUstKategoris());
+		model.addAttribute("kategoriService",kategoriService);
+		
+		if(uruns.isEmpty()){
+			model.addAttribute("message","Bu katagoride ürün bulunmamaktadır.");
+			logger.info("{} nolu kategoride ürünün olmadığı tespit edildi!", kategoriID);
+			return "musteri/index";
+		}
+		
+		model.addAttribute("urunler", uruns);
+		logger.info("Ürüne göre kategoriler listelendi.");
+		return "musteri/index";
+	}	
+
+	@RequestMapping(value = "/ustKatagoriUrun/{ustKategoriID}", method = RequestMethod.GET)
+	public String listUstKategoris(@PathVariable("ustKategoriID") Integer ustKategoriID, ModelMap model) {
+		List<Urun> uruns = urunService.getUrunByUstKategoriId(ustKategoriID);
+		
+		model.addAttribute("allUstKategoris", kategoriService.getAllUstKategoris());
+		model.addAttribute("kategoriService",kategoriService);
+		
+		if(uruns.isEmpty()){
+			model.addAttribute("message","Bu katagoride ürün bulunmamaktadır.");
+			logger.info("{} nolu üst kategoride ürünün olmadığı tespit edildi!", ustKategoriID);
+			return "musteri/index";
+		}
+		
+		model.addAttribute("urunler", uruns);
 		logger.info("Ürüne göre kategoriler listelendi.");
 		return "musteri/index";
 	}

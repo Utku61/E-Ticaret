@@ -39,6 +39,7 @@ public class KargoController {
 		
 		if (result.hasErrors()) {
 			logger.info("Hatalı kargo eklemesi yapıldı.");
+			model.addAttribute("allKargos", kargoService.getAllKargos());
 			return "admin/kargo";
 		}
 		
@@ -58,6 +59,7 @@ public class KargoController {
 	public String editKargo(@Valid Kargo kargo, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			logger.info("{} şirketini güncelleme sırasında hata oluştu", kargo.getAd());
+			model.addAttribute("allKargos", kargoService.getAllKargos());
 			return "admin/kargo";
 		}
 		

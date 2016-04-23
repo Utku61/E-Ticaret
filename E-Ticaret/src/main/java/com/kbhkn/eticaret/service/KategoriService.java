@@ -17,6 +17,8 @@ public interface KategoriService {
 
 	public List<AltKategori> getAllAltKategoris();
 	
+	public List<AltKategori> getAltKategoriListByKategoriID(Integer kategoriID);
+	
 	public void addKategori(Kategori kategori);
 
 	public Kategori getKategoriById(Integer kategoriId);
@@ -26,6 +28,8 @@ public interface KategoriService {
 	public void deleteKategori(Integer kategoriId);
 
 	public List<Kategori> getAllKategoris();
+	
+	public List<Kategori> getKategoriListByUstKategoriID(Integer ustKategoriID);
 	
 	public void addUstKategori(UstKategori ustKategori);
 

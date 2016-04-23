@@ -77,7 +77,8 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Yeni Kategori Adı</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" th:field="*{altKategoriAdi}" />
+											<input type="text" class="form-control" th:field="*{altKategoriAdi}" required="required"/>
+											<span th:if="${#fields.hasErrors('altKategoriAdi')}" class="form-control" style="color: red;" th:errors="*{altKategoriAdi}">Name Error</span>
 										</div>
 									</div>
 									<div class="form-group">
@@ -110,7 +111,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Geçiş Kategorisi</label>
 										<div class="col-lg-5">
-											<select class="form-control" th:field="*{{ustKategori.ustKategoriID}}" required="required">
+											<select class="form-control" th:field="*{{ustKategori.ustKategoriID}}">
 												<option th:each="ustKategori : ${allUstKategoris}"  th:value="${{ustKategori.ustKategoriID}}"  th:text="${ustKategori.ustKategoriAdi}">Wireframe</option>
 											</select>
 										</div>
@@ -118,7 +119,7 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Yeni Kategori Adı</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" th:field="*{kategoriAdi}" />
+											<input type="text" class="form-control" th:field="*{kategoriAdi}" required="required"/>
 										</div>
 									</div>
 									<div class="form-group">
@@ -151,13 +152,13 @@
 									<div class="form-group">
 										<label class="col-lg-3 control-label">Yeni Kategori Adı</label>
 										<div class="col-lg-5">
-											<input type="text" class="form-control" th:field="*{ustKategoriAdi}" />
+											<input type="text" class="form-control" th:field="*{ustKategoriAdi}"/>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-lg-3 control-label"></label>
 										<div class="col-lg-2">
-											<input type="submit" class="form-control btn btn-success" value="EKLE" />
+											<input type="submit" class="form-control btn btn-success" value="EKLE" required="required"/>
 										</div>
 									</div>
 								</form>

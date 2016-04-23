@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -26,12 +27,12 @@ public class Kategori implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "KategoriID")
 	private int kategoriID;
-
+	
 	@NotEmpty
 	@Column(name = "KategoriAdi")
 	private String kategoriAdi;
 	
-	@NotEmpty
+	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "UstKategoriID", nullable=false)
 	private UstKategori ustKategori;

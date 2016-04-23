@@ -2,6 +2,7 @@ package com.kbhkn.eticaret.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,14 @@ public class KategoriDaoImpl implements KategoriDAO {
 		return (List<AltKategori>) getSession().createCriteria(AltKategori.class).list();
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AltKategori> getAltKategoriListByKategoriID(Integer kategoriID) {
+		Query query = getSession().createQuery("from AltKategori where KategoriID = :id");
+		query.setParameter("id", kategoriID);
+		return (List<AltKategori>) query.list();
+	}
+	
 	@Override
 	public void addKategori(Kategori kategori) {
 		getSession().save(kategori);
@@ -77,7 +86,15 @@ public class KategoriDaoImpl implements KategoriDAO {
 	public List<Kategori> getAllKategoris() {
 		return (List<Kategori>) getSession().createCriteria(Kategori.class).list();
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Kategori> getKategoriListByUstKategoriID(Integer ustKategoriID) {
+		Query query = getSession().createQuery("from Kategori where UstKategoriID = :id");
+		query.setParameter("id", ustKategoriID);
+		return (List<Kategori>) query.list();
+	}
+	
 	@Override
 	public void addUstKategori(UstKategori ustKategori) {
 		getSession().save(ustKategori);
@@ -101,12 +118,13 @@ public class KategoriDaoImpl implements KategoriDAO {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<UstKategori> getAllUstKategoris() {
 		return (List<UstKategori>) getSession().createCriteria(UstKategori.class).list();
 	}
 	
+	
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
+
 }

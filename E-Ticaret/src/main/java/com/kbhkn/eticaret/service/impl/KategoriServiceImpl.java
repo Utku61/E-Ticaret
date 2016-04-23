@@ -39,6 +39,10 @@ public class KategoriServiceImpl implements KategoriService {
 		return kategoriDAO.getAllAltKategoris();
 	}
 	
+	public List<AltKategori> getAltKategoriListByKategoriID(Integer kategoriID) {
+		return kategoriDAO.getAltKategoriListByKategoriID(kategoriID);
+	}
+	
 	public void addKategori(Kategori kategori) {
 		kategoriDAO.addKategori(kategori);
 	}
@@ -57,6 +61,10 @@ public class KategoriServiceImpl implements KategoriService {
 
 	public List<Kategori> getAllKategoris() {
 		return kategoriDAO.getAllKategoris();
+	}
+	
+	public List<Kategori> getKategoriListByUstKategoriID(Integer ustKategoriID) {
+		return kategoriDAO.getKategoriListByUstKategoriID(ustKategoriID);
 	}
 	
 	public void addUstKategori(UstKategori ustKategori) {
@@ -82,4 +90,5 @@ public class KategoriServiceImpl implements KategoriService {
 	public void setKategoriDAO(KategoriDAO kategoriDAO) {
 		this.kategoriDAO = kategoriDAO;
 	}
+
 }

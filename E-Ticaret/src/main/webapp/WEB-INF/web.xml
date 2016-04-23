@@ -9,10 +9,10 @@
 		<location>/error/404</location>
 	</error-page>
 
-	<error-page>
-		<exception-type>java.lang.Throwable</exception-type>
-		<location>/error/app-error</location>
-	</error-page>
+<!-- 	<error-page> -->
+<!-- 		<exception-type>java.lang.Throwable</exception-type> -->
+<!-- 		<location>/error/app-error</location> -->
+<!-- 	</error-page> -->
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>

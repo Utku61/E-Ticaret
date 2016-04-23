@@ -25,7 +25,7 @@ public class CustomErrorController{
 		return "error/404";
 	}
 	
-	@RequestMapping(value = "/error/app-error", method = RequestMethod.GET)
+	@RequestMapping(value = "/error/app-error2", method = RequestMethod.GET)
 	public String applicationError(HttpServletRequest request, HttpServletResponse response, Model model) {
 		Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
 		Throwable throwable = (Throwable) request.getAttribute("javax.servlet.error.exception");

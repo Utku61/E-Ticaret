@@ -42,8 +42,18 @@ public class UrunServiceImpl implements UrunService {
 	}
 	
 	@Transactional
+	public List<Urun> getUrunByAltKategoriId(Integer altKategoriId) {
+		return urunDao.getUrunByAltKategoriId(altKategoriId);
+	}
+
+	@Transactional
 	public List<Urun> getUrunByKategoriId(Integer kategoriId) {
 		return urunDao.getUrunByKategoriId(kategoriId);
+	}
+	
+	@Transactional
+	public List<Urun> getUrunByUstKategoriId(Integer ustKategoriId) {
+		return urunDao.getUrunByUstKategoriId(ustKategoriId);
 	}
 
 	@Transactional

@@ -42,9 +42,8 @@ public class KategoriController {
 	
 	@RequestMapping(value = "/altkategori/new", method = RequestMethod.POST)
 	public String addAltKategori(@Valid AltKategori subCategory, BindingResult result, ModelMap model) {
-		System.out.println(subCategory.getAltKategoriAdi());
 		if (result.hasErrors()) {
-			logger.info("Hatalı altKatagori eklemesi yapıldı. Hatalı kategori adı: {}", subCategory.getAltKategoriAdi());
+			logger.info("Hatalı Katagori eklemesi yapıldı. Hatalı kategori adı: {}", subCategory.getAltKategoriAdi());
 			return "admin/kategori";
 		}
 		

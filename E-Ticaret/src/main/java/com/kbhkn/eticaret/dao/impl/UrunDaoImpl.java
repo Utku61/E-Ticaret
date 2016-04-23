@@ -51,10 +51,24 @@ public class UrunDaoImpl implements UrunDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Urun> getUrunByKategoriId(Integer kategoriId) {
-		Query query = getSession().createQuery("from Urun where KatagoriID = :id");
-		query.setParameter("id", kategoriId);
+	public List<Urun> getUrunByAltKategoriId(Integer altKategoriId) {
+		Query query = getSession().createQuery("from Urun where AltKategoriID = :id");
+		query.setParameter("id", altKategoriId);
 		return (List<Urun>)query.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Urun> getUrunByKategoriId(Integer kategoriId) {
+		Query query = getSession().createSQLQuery("CALL getKategoriUrunList(:kategoriID)").addEntity(Urun.class).setParameter("kategoriID", kategoriId);
+		return (List<Urun>) query.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Urun> getUrunByUstKategoriId(Integer ustKategoriId) {
+		Query query = getSession().createSQLQuery("CALL getUstKategoriUrunList(:ustKategoriID)").addEntity(Urun.class).setParameter("ustKategoriID", ustKategoriId);
+		return (List<Urun>) query.list();
 	}
 	
 	@SuppressWarnings("unchecked")

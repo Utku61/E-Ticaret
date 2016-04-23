@@ -15,7 +15,11 @@ public interface UrunDAO {
 	
 	public String getImageByUrunId(Integer urunId);
 
+	public List<Urun> getUrunByAltKategoriId(Integer altKategoriId);
+	
 	public List<Urun> getUrunByKategoriId(Integer kategoriId);
+	
+	public List<Urun> getUrunByUstKategoriId(Integer ustKategoriId);
 	
 	public List<Urun> searchUrun(String urunAdi);
 	
