@@ -2,9 +2,7 @@ package com.kbhkn.eticaret.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -78,8 +75,6 @@ public class Musteri implements Serializable {
 	@JoinColumn(name="SehirID")
 	private Sehir sehir;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy="musteri", cascade = CascadeType.ALL)
-	private List<Siparis> siparis;
 
 	public Musteri() {
 	}
@@ -171,14 +166,6 @@ public class Musteri implements Serializable {
 	public void setTelefonNo(String telefonNo) {
 		this.telefonNo = telefonNo;
 	}
-
-	public List<Siparis> getSiparis() {
-		return this.siparis;
-	}
-
-	public void setSiparis(List<Siparis> siparis) {
-		this.siparis = siparis;
-	}
 	
 	public Sehir getSehir() {
 		return sehir;
@@ -192,7 +179,7 @@ public class Musteri implements Serializable {
 	public String toString() {
 		return "Musteri [musteriID=" + musteriID + ", ad=" + ad + ", adres=" + adres + ", cepNo=" + cepNo + ", eposta="
 				+ eposta + ", IPAdress=" + IPAdress + ", kayitTarihi=" + kayitTarihi + ", parola=" + parola + ", soyad="
-				+ soyad + ", tcno=" + tcno + ", telefonNo=" + telefonNo + ", sehir=" + sehir + ", siparis=" + siparis
+				+ soyad + ", tcno=" + tcno + ", telefonNo=" + telefonNo + ", sehir=" + sehir + ", siparis="
 				+ "]";
 	}
 	

@@ -27,6 +27,10 @@ public class SiparisDurum implements Serializable {
 
 	public SiparisDurum() {
 	}
+	
+	public SiparisDurum(int siparisDurumID){
+		this.siparisDurumID = siparisDurumID;
+	}
 
 	public int getSiparisDurumID() {
 		return this.siparisDurumID;

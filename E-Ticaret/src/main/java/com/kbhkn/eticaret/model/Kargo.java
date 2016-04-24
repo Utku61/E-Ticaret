@@ -33,6 +33,11 @@ public class Kargo implements Serializable {
 	public Kargo() {
 		super();
 	}
+	
+	public Kargo(int kargoID) {
+		super();
+		this.kargoID = kargoID;
+	}
 
 	public int getKargoID() {
 		return this.kargoID;

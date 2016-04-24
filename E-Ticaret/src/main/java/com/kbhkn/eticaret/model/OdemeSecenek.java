@@ -26,6 +26,10 @@ public class OdemeSecenek implements Serializable {
 
 	public OdemeSecenek() {
 	}
+	
+	public OdemeSecenek(int odemeSecenekID){
+		this.odemeSecenekID = odemeSecenekID;
+	}
 
 	public int getOdemeSecenekID() {
 		return this.odemeSecenekID;

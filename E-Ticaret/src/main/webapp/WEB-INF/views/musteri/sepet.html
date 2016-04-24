@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>E-Ticaret Müşteri Paneli</title>
+	<link th:href="@{/resources/css/bootstrap.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/font-awesome.min.css}" rel="stylesheet" />
+	<link th:href="@{/resources/css/user.css}" rel="stylesheet" />
+
+	<script th:src="@{/resources/js/jquery.js}"></script>
+	<script th:src="@{/resources/js/bootstrap.js}"></script>
+	<script th:src="@{/resources/js/custom_script_admin.js}"></script>
+	<script th:src="@{/resources/js/custom.js}"></script>
+	<script th:src="@{/resources/js/bootstrap-select.js}"></script>
+	<script th:src="@{/resources/js/jquery.multiselect.js}"></script>
+	<script th:src="@{/resources/js/moment-with-locales.js}"></script>
+	<script th:src="@{/resources/js/bootstrap-datetimepicker.js}"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="z-index: 2;">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" th:href="@{/index}">Anasayfa</a>
+				</div>
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li><a href="#">Hakkımızda</a></li>
+						<li><a href="#">İletişim</a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <span class="glyphicon glyphicon-search"></span> Ara<b class="caret"></b></a>
+							<ul class="dropdown-menu" style="min-width: 300px;">
+								<li>
+									<div class="row">
+										<div class="col-md-12">
+											<form class="navbar-form navbar-left" role="search" method="post" action="urunara">
+												<div class="input-group">
+													<input type="text" name="urunAdi" class="form-control" required="required" /> <span class="input-group-btn">
+														<button class="btn btn-primary" type="submit">Ara</button>
+													</span>
+												</div>
+											</form>
+										</div>
+									</div>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li th:unless="${session.musteri}"><a th:href="@{/musteri/register}">Üye Ol<i aria-hidden="true"></i></a></li>
+						<li th:unless="${session.musteri}"><a th:href="@{/musteri/register}"><span class="glyphicon glyphicon-user"></span>Giriş Yap</a></li>
+						<li th:if="${session.musteri}"><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart" th:text="'(0)'"></i>Sepetim</a></li>
+						<li th:if="${session.musteri}" class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
+								<i class="fa fa-user fa-fw"></i><span th:text="${session.musteri.ad} + ' ' + ${session.musteri.soyad}"></span>
+								<i class="fa fa-caret-down"></i>
+							</a>
+							<ul class="dropdown-menu dropdown-user">
+								<li><a href="#" data-toggle="modal" data-target="#EditMusteriModal"><i class="fa fa-gear fa-fw"></i>Parola Değiştir</a></li>
+								<li class="divider"></li>
+								<li><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart "></i>Sepetim</a></li>
+								<li><a th:href="@{/musteri/logout}"><i class="fa fa-sign-out fa-fw"></i>Güvenli Çıkış</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Ürün Resmi</th>
+							<th>Ürün Adı</th>
+							<th>Açıklaması</th>
+							<th>Ürün Fiyatı</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="s,y : ${sepet}">
+							<td class="col-sm-2">
+								<div class="media">
+									<img class="media-object" th:src="@{/resources/images/}+${s.resim}" style="width: 72px; height: 72px;"/>
+								</div>
+							</td>
+							<td class="col-sm-2"><strong th:text="${s.urunAdi}"></strong></td>
+							<td class="col-sm-1"><strong th:text="${s.aciklama}"></strong></td>
+							<td class="col-sm-1"><strong th:text="${s.fiyat}"></strong></td>
+							<td class="col-sm-1">
+								<a th:href="@{/musteri/urunsil/}+${y.index}" type="submit" class="btn btn-danger">
+									<span class="glyphicon glyphicon-remove"></span>Ürünü Sil
+								</a>
+							</td>
+						</tr >
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><h3><b style="color: blue;">Toplam Tutar</b></h3></td>
+							<td class="text-right"><h3>
+									<strong th:text="${0} + 'TL'"></strong>
+								</h3>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><a href="index" class="btn btn-default">
+								<i class="glyphicon glyphicon-shopping-cart"></i>Alış verişe devam et</a></td>
+							<td><a href="#" data-toggle="modal" data-target="#SiparisVer" class="btn btn-success">Siparişi Tamamla 
+									<i class="glyphicon glyphicon-play" aria-hidden="true"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="col-md-12" th:if="${siparisSonuc  != null}">
+					<div class="alert alert-warning alert-dismissible" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<strong th:text="${siparisSonuc}"></strong>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="SiparisVer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Sipariş İşlemini Tamamla</h4>
+				</div>
+
+				<div class="modal-body">
+					<form th:action="@{/musteri/siparisver}" id="siparisver" method="post" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-lg-5 control-label">Ödeme Seçenek Tipini Seçiniz</label>
+							<div class="col-lg-6">
+								<select title="Ödeme Seçenek Tipini Seçiniz" class="form-control" data-live-search="true" name="odemeSecenek" id="odemeSecenek">
+									<option value="">Ödeme Seçenek Tipini Seçiniz</option>
+               						<option th:each="o : ${allOdemeSeceneks}" th:value="${o.odemeSecenekID}" th:text="${o.odemeTipi}">Kategori</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-5 control-label">Kargo Şirketi Seçiniz</label>
+							<div class="col-lg-6">
+								<select title="Kargo Şirketini Seçiniz" class="form-control" data-live-search="true" name="kargo" id="kargo">
+									<option value="">Kargo Şirketini Seçiniz</option>
+               						<option th:each="a : ${allKargos}" th:value="${a.kargoID}" th:text="${a.ad}">Kategori</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-lg-5 control-label">Teslim Edilecek Adresi Giriniz</label>
+							<div class="col-lg-5">
+								<input type="text" class="form-control" name="teslimAdres" id="teslimAdres" required="required" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-lg-5 col-lg-offset-3">
+								<input type="submit" class="form-control btn btn-success" name="degistir" value="Ödeme İşlemini tamamla"/>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+		
+		

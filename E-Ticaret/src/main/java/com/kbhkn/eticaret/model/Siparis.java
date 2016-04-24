@@ -15,8 +15,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 
 @Entity
 @Table(name="Siparis")
@@ -28,49 +26,39 @@ public class Siparis implements Serializable {
 	@Column(name="SiparisID", unique=true, nullable=false)
 	private int siparisID;
 	
-	@NotEmpty
 	@Column(name="Adet", nullable=false)
 	private int adet;
 
-	@NotEmpty
 	@Column(name="Fiyat", nullable=false)
 	private double fiyat;
 
-	@NotEmpty
 	@Column(name="TeslimEdilecekAdres", nullable=false, length=90)
 	private String teslimEdilecekAdres;
 	
-	@NotEmpty
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="TeslimTarihi")
 	private Date teslimTarihi;
 	
-	@NotEmpty
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="VerilisTarihi", nullable=false)
 	private Date verilisTarihi;
 
-	@NotEmpty
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="KargoID", nullable=false)
 	private Kargo kargo;
 	
-	@NotEmpty
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="MusteriID", nullable=false)
 	private Musteri musteri;
 	
-	@NotEmpty
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="OdemeSecenekID", nullable=false)
 	private OdemeSecenek odemeSecenek;
 	
-	@NotEmpty
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="SiparisDurumID", nullable=false)
 	private SiparisDurum siparisDurum;
 	
-	@NotEmpty
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="UrunID", nullable=false)
 	private Urun urun;
@@ -134,14 +122,6 @@ public class Siparis implements Serializable {
 		this.kargo = kargo;
 	}
 
-	public Musteri getMusteriler() {
-		return this.musteri;
-	}
-
-	public void setMusteriler(Musteri musteri) {
-		this.musteri = musteri;
-	}
-
 	public OdemeSecenek getOdemeSecenek() {
 		return this.odemeSecenek;
 	}
@@ -164,6 +144,14 @@ public class Siparis implements Serializable {
 
 	public void setUrun(Urun urun) {
 		this.urun = urun;
+	}
+	
+	public Musteri getMusteri() {
+		return musteri;
+	}
+
+	public void setMusteri(Musteri musteri) {
+		this.musteri = musteri;
 	}
 
 	@Override

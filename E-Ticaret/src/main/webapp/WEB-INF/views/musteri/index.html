@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div id="wrapper">
-		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+		<nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="z-index: 2;">
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" th:href="@{/index}">Anasayfa</a>
@@ -48,7 +48,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li th:unless="${session.musteri}"><a th:href="@{/musteri/register}">Üye Ol<i aria-hidden="true"></i></a></li>
 						<li th:unless="${session.musteri}"><a th:href="@{/musteri/register}"><span class="glyphicon glyphicon-user"></span>Giriş Yap</a></li>
-						<li th:if="${session.musteri}"><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart "></i>Sepetim</a></li>
+						<li th:if="${session.musteri}"><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart" th:text="'(0)'"></i>Sepetim</a></li>
 						<li th:if="${session.musteri}" class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
 								<i class="fa fa-user fa-fw"></i><span th:text="${session.musteri.ad} + ' ' + ${session.musteri.soyad}"></span>
@@ -65,7 +65,7 @@
 				</div>
 			</div>
 		</nav>
-		<div class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="navbar navbar-default navbar-static-top" role="navigation" style="z-index: 1;">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

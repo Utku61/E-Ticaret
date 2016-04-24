@@ -54,14 +54,14 @@
 				</div>
 			</div>
 		</nav>
-		<div id="page-wrapper" class="container">
+		<div id="page-wrapper">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="list-group">
 						<h1 class="page-header">Başlangıç</h1>
 					</div>
 				</div>
-				<div class="col-md-12" th:if="${checkSiparisList}">
+				<div class="col-md-12" th:if="${checkSiparisList != null}">
 					<div class="alert alert-warning alert-dismissible" role="alert">
 						<button type="button" class="close" data-dismiss="alert"
 							aria-label="Close">

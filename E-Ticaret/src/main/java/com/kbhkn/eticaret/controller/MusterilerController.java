@@ -20,11 +20,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.kbhkn.eticaret.model.Kargo;
 import com.kbhkn.eticaret.model.Musteri;
+import com.kbhkn.eticaret.model.OdemeSecenek;
+import com.kbhkn.eticaret.model.Siparis;
+import com.kbhkn.eticaret.model.SiparisDurum;
 import com.kbhkn.eticaret.model.Urun;
+import com.kbhkn.eticaret.service.KargoService;
 import com.kbhkn.eticaret.service.KategoriService;
 import com.kbhkn.eticaret.service.MusteriService;
+import com.kbhkn.eticaret.service.OdemeSecenekService;
 import com.kbhkn.eticaret.service.SehirService;
+import com.kbhkn.eticaret.service.SiparisService;
 import com.kbhkn.eticaret.service.UrunService;
 
 @Controller
@@ -45,6 +52,15 @@ public class MusterilerController {
 	@Autowired
 	private UrunService urunService;
 	
+	@Autowired
+	private OdemeSecenekService odemeSecenekService;
+	
+	@Autowired
+	private KargoService kargoService;
+	
+	@Autowired
+	private SiparisService SiparisService;
+	
 	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
 	public String listUruns(HttpSession session, ModelMap model) {
 		model.addAttribute("urunler", urunService.getAllUruns());
@@ -64,6 +80,42 @@ public class MusterilerController {
 	@RequestMapping(value = "/musterilogin", method = RequestMethod.GET)
 	public String redirectRegister(){
 		return "redirect:/musteri/register";
+	}
+
+	@RequestMapping(value = "/sepet", method = RequestMethod.GET)
+	public String lookAtCart(HttpSession session, ModelMap model){
+		@SuppressWarnings("unchecked")
+		ArrayList<Urun> sepet = (ArrayList<Urun>) session.getAttribute("sepet");
+		model.addAttribute("allKargos", kargoService.getAllKargos());
+		model.addAttribute("allOdemeSeceneks", odemeSecenekService.getAllOdemeSeceneks());
+		model.addAttribute("sepet", sepet);
+		return "musteri/sepet";
+	}
+	
+	@RequestMapping(value = "/sepetekle/{urunID}", method = RequestMethod.GET)
+	public String addItem(@PathVariable("urunID") Integer urunID, HttpSession session, ModelMap model){
+		@SuppressWarnings("unchecked")
+		ArrayList<Urun> sepet = (ArrayList<Urun>) session.getAttribute("sepet");
+		try {
+			sepet.add(urunService.getUrunById(urunID));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/musteri/index";
+	}
+	
+	@RequestMapping(value = "/urunsil/{urunID}", method = RequestMethod.GET)
+	public String deleteItem(@PathVariable("urunID") Integer urunID, HttpSession session, ModelMap model){
+		@SuppressWarnings("unchecked")
+		ArrayList<Urun> sepet = (ArrayList<Urun>) session.getAttribute("sepet");
+		try {
+			sepet.remove(urunID);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("allKargos", kargoService.getAllKargos());
+		model.addAttribute("allOdemeSeceneks", odemeSecenekService.getAllOdemeSeceneks());
+		return "redirect:/musteri/sepet";
 	}
 	
 	@RequestMapping(value = "/musterilogin", method = RequestMethod.POST)
@@ -191,6 +243,38 @@ public class MusterilerController {
 		return "redirect:/musteri/sepet";
 	}
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/siparisver", method = RequestMethod.POST)
+	public String siparisVer(ModelMap model, HttpServletRequest request) {
+		String odemeSecenek = request.getParameter("odemeSecenek");
+		String kargo = request.getParameter("kargo");
+		String adres = request.getParameter("teslimAdres");
+		
+		System.out.println(odemeSecenek +" " + kargo + " " + adres);
+		
+		if(odemeSecenek != null && kargo != null && adres != null){
+			Musteri musteri = (Musteri)request.getSession().getAttribute("musteri");
+			ArrayList<Urun> sepet = (ArrayList<Urun>)request.getSession().getAttribute("sepet");
+			for(Urun urun : sepet){
+				Siparis yeniSiparis = new Siparis();
+				yeniSiparis.setAdet(1);
+				yeniSiparis.setFiyat(urun.getFiyat());
+				yeniSiparis.setKargo(new Kargo(Integer.parseInt(kargo)));
+				yeniSiparis.setMusteri(musteri);
+				yeniSiparis.setOdemeSecenek(new OdemeSecenek(Integer.parseInt(odemeSecenek)));
+				yeniSiparis.setTeslimEdilecekAdres(adres);
+				yeniSiparis.setTeslimTarihi(new Date());
+				yeniSiparis.setVerilisTarihi(new Date());
+				yeniSiparis.setUrun(urun);
+				yeniSiparis.setSiparisDurum(new SiparisDurum(3));
+				SiparisService.addSiparis(yeniSiparis);
+			}
+			sepet.clear();
+		}
+//		return "redirect:/musteri/index";
+		return null;
+	}
+	
 	public void setMusteriService(MusteriService musteriService) {
 		this.musteriService = musteriService;
 	}
@@ -206,4 +290,17 @@ public class MusterilerController {
 	public void setSehirService(SehirService sehirService) {
 		this.sehirService = sehirService;
 	}
+
+	public void setOdemeSecenekService(OdemeSecenekService odemeSecenekService) {
+		this.odemeSecenekService = odemeSecenekService;
+	}
+
+	public void setKargoService(KargoService kargoService) {
+		this.kargoService = kargoService;
+	}
+
+	public void setSiparisService(SiparisService siparisService) {
+		SiparisService = siparisService;
+	}
 }
+

@@ -31,7 +31,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
 	public String listAllSiparis(HttpSession session, ModelMap model) {
 		model.addAttribute("checkSiparisList", adminService.getBekleyenSiparisKontrol());
 		logger.info("Admin dashboard'a düştü");

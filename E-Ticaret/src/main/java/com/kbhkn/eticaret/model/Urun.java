@@ -1,9 +1,7 @@
 package com.kbhkn.eticaret.model;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,8 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -31,7 +29,7 @@ public class Urun implements Serializable {
 	@Column(name="Aciklama", nullable=false, length=45)
 	private String aciklama;
 
-	@NotEmpty
+	@NotNull
 	@Column(name="Fiyat", nullable=false)
 	private double fiyat;
 
@@ -39,7 +37,7 @@ public class Urun implements Serializable {
 	@Column(name="Resim", nullable=false)
 	private String resim;
 
-	@NotEmpty
+	@NotNull
 	@Column(name="StokMiktar", nullable=false)
 	private int stokMiktar;
 
@@ -47,8 +45,8 @@ public class Urun implements Serializable {
 	@Column(name="UrunAdi", nullable=false, length=45)
 	private String urunAdi;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "urun", cascade = CascadeType.ALL)
-	private List<Siparis> siparis;
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "urun", cascade = CascadeType.ALL)
+//	private List<Siparis> siparis;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="AltKategoriID", nullable = false)
@@ -105,13 +103,13 @@ public class Urun implements Serializable {
 		this.urunAdi = urunAdi;
 	}
 
-	public List<Siparis> getSiparis() {
-		return this.siparis;
-	}
-
-	public void setSiparis(List<Siparis> siparis) {
-		this.siparis = siparis;
-	}
+//	public List<Siparis> getSiparis() {
+//		return this.siparis;
+//	}
+//
+//	public void setSiparis(List<Siparis> siparis) {
+//		this.siparis = siparis;
+//	}
 
 	public AltKategori getAltKategori() {
 		return altKategori;
