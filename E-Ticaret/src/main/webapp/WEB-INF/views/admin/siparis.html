@@ -9,6 +9,7 @@
 <script th:src="@{/resources/js/jquery.js}"></script>
 <script th:src="@{/resources/js/bootstrap.js}"></script>
 <script th:src="@{/resources/js/custom_script_admin.js}"></script>
+<script th:src="@{/resources/js/custom.js}"></script>
 <script th:src="@{/resources/js/bootstrap-select.js}"></script>
 <script th:src="@{/resources/js/jquery.multiselect.js}"></script>
 <script th:src="@{/resources/js/moment-with-locales.js}"></script>
@@ -41,7 +42,7 @@
 					<li><a href="../musteris/list"><i class="fa fa-users  fa-fw"></i>Müşteri Bilgileri</a></li>
 					<li><a href="../odemeseceneks/list"><i class="fa fa-credit-card fa-fw"></i>Ödeme Seçenekleri</a></li>
 					<li><a href="../sehirs/list"><i class="glyphicon glyphicon-map-marker"></i>Şehir Ayarları</a></li>
-					<li><a href="../siparis/list"><i class="glyphicon glyphicon-indent-left"></i>Siparişler</a></li>
+					<li><a href="../siparis/list"><i class="glyphicon glyphicon-indent-left"></i>Siparişler<span id="siparisNo"></span></a></li>
 					<li><a href="../siparisdurums/list"><i class="glyphicon glyphicon-briefcase"></i>Sipariş Durum Ayarları</a></li>
 					<li><a href="../uruns/list"><i class="fa fa-th fa-fw"></i>Ürünlerim</a></li>
 					<li><a href="../yetkis/list"><i class="fa fa-cogs fa-fw"></i>Yetki Ayarları</a></li>
@@ -87,7 +88,7 @@
 										<td th:text="${siparis.verilisTarihi}"></td>
 										<td th:text="${siparis.teslimTarihi}"></td>
 										<td th:text="${siparis.teslimEdilecekAdres}"></td>
-										<td><a href="#" data-toggle="modal" data-target="#EditSiparisModal" class="btn btn-primary" th:attr="data-siparis-no=${siparis.siparisID},data-siparis-teslimtarihi=${siparis.teslimTarihi}"> Değiştir <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i></a></td>
+										<td><a href="#" data-toggle="modal" data-target="#EditSiparisModal" class="btn btn-primary" th:attr="data-siparis-no=${siparis.siparisID},data-siparis-teslimtarihi=${siparis.teslimTarihi},data-siparis-musteri=${siparis.musteri.musteriID}"> Değiştir <i class="glyphicon glyphicon-refresh" aria-hidden="true"></i></a></td>
 										<td><a href="#" th:attr="data-href='deletesiparis/'+${siparis.siparisID}" data-toggle="modal" data-target="#deleteSiparisModal" class="btn btn-danger">Sil<i class="glyphicon glyphicon-trash"></i></a></td>
 									</tr>
 							</tbody>
@@ -113,10 +114,11 @@
 						<h4 class="modal-title">Sipariş Bilgilerini Güncelle</h4>
 					</div>
 					<div class="modal-body">
-						<form th:action="@{/admin/siparis/siparisguncelle}" th:object="${siparis}" method="post" class="form-horizontal">
+						<form th:action="@{/admin/siparis/siparisguncelle}" th:object="${siparis}" method="POST" class="form-horizontal">
 							<div class="form-group">
 								<div class="col-lg-5">
-									<input type="hidden" class="form-control" th:field="*{siparisID}" />
+									<input type="hidden" class="form-control" th:field="*{siparisID}"/>
+									<input type="hidden" class="form-control" th:field="*{musteri.musteriID}"/>
 								</div>
 							</div>
 							<div class="form-group">

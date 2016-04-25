@@ -101,6 +101,7 @@ $(document).ready(function(){
 	
 	$("#EditSiparisModal").on('show.bs.modal',function(e){
 		$(this).find('#siparisID').val($(e.relatedTarget).data('siparis-no'));
+		$(this).find('#musteriID').val($(e.relatedTarget).data('siparis-musteri'));
 		$(this).find('#siparisTeslimTarihi').val($(e.relatedTarget).data('siparis-teslimtarihi'));
 	});
 	

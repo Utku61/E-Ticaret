@@ -9,7 +9,6 @@
 	<script th:src="@{/resources/js/jquery.js}"></script>
 	<script th:src="@{/resources/js/bootstrap.js}"></script>
 	<script th:src="@{/resources/js/custom_script_admin.js}"></script>
-	<script th:src="@{/resources/js/custom.js}"></script>
 	<script th:src="@{/resources/js/bootstrap-select.js}"></script>
 	<script th:src="@{/resources/js/jquery.multiselect.js}"></script>
 	<script th:src="@{/resources/js/moment-with-locales.js}"></script>
@@ -32,7 +31,7 @@
 								<li>
 									<div class="row">
 										<div class="col-md-12">
-											<form class="navbar-form navbar-left" role="search" method="post" action="urunara">
+											<form class="navbar-form navbar-left" role="search" method="post" th:action="@{/musteri/urunara}">
 												<div class="input-group">
 													<input type="text" name="urunAdi" class="form-control" required="required" /> <span class="input-group-btn">
 														<button class="btn btn-primary" type="submit">Ara</button>
@@ -48,7 +47,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li th:unless="${session.musteri}"><a th:href="@{/musteri/register}">Üye Ol<i aria-hidden="true"></i></a></li>
 						<li th:unless="${session.musteri}"><a th:href="@{/musteri/register}"><span class="glyphicon glyphicon-user"></span>Giriş Yap</a></li>
-						<li th:if="${session.musteri}"><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart" th:text="'(0)'"></i>Sepetim</a></li>
+						<li th:if="${session.musteri}"><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart" th:text="'Sepetim(' + ${session.sepet.size()} + ')'"></i></a></li>
 						<li th:if="${session.musteri}" class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
 								<i class="fa fa-user fa-fw"></i><span th:text="${session.musteri.ad} + ' ' + ${session.musteri.soyad}"></span>
@@ -57,7 +56,7 @@
 							<ul class="dropdown-menu dropdown-user">
 								<li><a href="#" data-toggle="modal" data-target="#EditMusteriModal"><i class="fa fa-gear fa-fw"></i>Parola Değiştir</a></li>
 								<li class="divider"></li>
-								<li><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart "></i>Sepetim</a></li>
+								<li><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart" th:text="'Sepetim(' + ${session.sepet.size()} + ')'"></i></a></li>
 								<li><a th:href="@{/musteri/logout}"><i class="fa fa-sign-out fa-fw"></i>Güvenli Çıkış</a></li>
 							</ul>
 						</li>
@@ -133,6 +132,7 @@
 							<img alt="" th:src="@{/resources/images/} + ${u.resim}" class="img-thumbnail" style="width: 320px; height: 150px;" />
 							<div class="caption">
 								<h4 class="pull-right" th:text="${u.fiyat}+'TL'"></h4>
+								<h4 th:text="${u.urunAdi}"></h4>
 								<p th:text="${u.aciklama}"></p>
 								<p th:if="${session.musteri}" style="color: blue;">
 									<a th:href="@{/musteri/sepetekle/}+${u.urunID}" th:text="'Sepete Ekle'"><i class="fa fa-plus-square "></i></a>

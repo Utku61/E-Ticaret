@@ -104,6 +104,18 @@ public class MusterilerController {
 		return "redirect:/musteri/index";
 	}
 	
+	@RequestMapping(value = "/sepetibosalt", method = RequestMethod.GET)
+	public String clearCart(HttpSession session, ModelMap model){
+		@SuppressWarnings("unchecked")
+		ArrayList<Urun> sepet = (ArrayList<Urun>) session.getAttribute("sepet");
+		try {
+			sepet.clear();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/musteri/sepet";
+	}
+	
 	@RequestMapping(value = "/urunsil/{urunID}", method = RequestMethod.GET)
 	public String deleteItem(@PathVariable("urunID") Integer urunID, HttpSession session, ModelMap model){
 		@SuppressWarnings("unchecked")
@@ -211,6 +223,13 @@ public class MusterilerController {
 		musteriService.addMusteri(newMusteri);
 		logger.info("Yeni müşteri eklendi. ID: {}", newMusteri.getMusteriID());
 		return "redirect:/musteri/index";
+	}
+	
+	@RequestMapping(value = "/urunara", method = RequestMethod.POST)
+	public String searchItem(HttpServletRequest req,  ModelMap model) {
+		String urunAdi = req.getParameter("urunAdi");
+		model.addAttribute("urunler",urunService.searchUrun(urunAdi));
+		return "musteri/index";
 	}
 	
 	@RequestMapping(value = "/parolaguncelle", method = RequestMethod.POST)

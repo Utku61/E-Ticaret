@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,7 +67,7 @@ public class SiparisController {
 	}
 
 	@RequestMapping(value = "/siparisguncelle", method = RequestMethod.POST)
-	public String editSiparis(@Valid @ModelAttribute(value="siparis") Siparis siparis, BindingResult result, ModelMap model) {
+	public String editSiparis(@Valid Siparis siparis, BindingResult result) {
 		if (result.hasErrors()) {
 			logger.info("{} nolu ID'ye sahip siparişi güncelleme sırasında hata oluştu", siparis.getSiparisID());
 			return "admin/siparis";

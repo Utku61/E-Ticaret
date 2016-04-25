@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.kbhkn.eticaret.dao.AdminDAO;
 import com.kbhkn.eticaret.model.Admin;
-import com.kbhkn.eticaret.model.Siparis;
 
 @Repository
 public class AdminDaoImpl implements AdminDAO {
@@ -60,7 +59,8 @@ public class AdminDaoImpl implements AdminDAO {
 	
 	@Override
 	public boolean getBekleyenSiparisKontrol() {
-		return (getSession().createCriteria(Siparis.class).add(Restrictions.isNull("TeslimTarihi")) != null) ? false : true;
+		Query query = getSession().createQuery("select count(s) from Siparis s where SiparisDurumID = 3");
+		return ((Long)query.uniqueResult()).intValue() != 0 ? true : false;  
 	}
 
 	@SuppressWarnings("unchecked")

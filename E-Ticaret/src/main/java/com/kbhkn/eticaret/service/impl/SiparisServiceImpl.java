@@ -35,6 +35,11 @@ public class SiparisServiceImpl implements SiparisService {
 	public void deleteSiparis(Integer siparisId) {
 		siparisDao.deleteSiparis(siparisId);
 	}
+	
+	@Transactional
+	public int getSiparisCount() {
+		return siparisDao.getSiparisCount();
+	}
 
 	@Transactional
 	public List<Siparis> getAllSipariss() {
@@ -45,3 +50,4 @@ public class SiparisServiceImpl implements SiparisService {
 		this.siparisDao = siparisDao;
 	}
 }
+

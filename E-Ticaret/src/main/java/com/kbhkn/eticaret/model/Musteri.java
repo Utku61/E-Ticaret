@@ -78,6 +78,10 @@ public class Musteri implements Serializable {
 
 	public Musteri() {
 	}
+	
+	public Musteri(int musteriID){
+		this.musteriID = musteriID;
+	}
 
 	public int getMusteriID() {
 		return this.musteriID;

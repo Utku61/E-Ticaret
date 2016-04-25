@@ -9,7 +9,7 @@
 	<script th:src="@{/resources/js/jquery.js}"></script>
 	<script th:src="@{/resources/js/bootstrap.js}"></script>
 	<script th:src="@{/resources/js/custom_script_admin.js}"></script>
-	<script th:src="@{/resources/js/custom.js}"></script>
+	<script th:src="@{/resources/js/sepetHesapla.js}"></script>
 	<script th:src="@{/resources/js/bootstrap-select.js}"></script>
 	<script th:src="@{/resources/js/jquery.multiselect.js}"></script>
 	<script th:src="@{/resources/js/moment-with-locales.js}"></script>
@@ -48,7 +48,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li th:unless="${session.musteri}"><a th:href="@{/musteri/register}">Üye Ol<i aria-hidden="true"></i></a></li>
 						<li th:unless="${session.musteri}"><a th:href="@{/musteri/register}"><span class="glyphicon glyphicon-user"></span>Giriş Yap</a></li>
-						<li th:if="${session.musteri}"><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart" th:text="'(0)'"></i>Sepetim</a></li>
+												<li th:if="${session.musteri}"><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart" th:text="'Sepetim(' + ${session.sepet.size()} + ')'"></i></a></li>
 						<li th:if="${session.musteri}" class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" href="#"> 
 								<i class="fa fa-user fa-fw"></i><span th:text="${session.musteri.ad} + ' ' + ${session.musteri.soyad}"></span>
@@ -57,7 +57,7 @@
 							<ul class="dropdown-menu dropdown-user">
 								<li><a href="#" data-toggle="modal" data-target="#EditMusteriModal"><i class="fa fa-gear fa-fw"></i>Parola Değiştir</a></li>
 								<li class="divider"></li>
-								<li><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart "></i>Sepetim</a></li>
+								<li><a th:href="@{/musteri/sepet}"><i class="glyphicon glyphicon-shopping-cart" th:text="'Sepetim(' + ${session.sepet.size()} + ')'"></i></a></li>
 								<li><a th:href="@{/musteri/logout}"><i class="fa fa-sign-out fa-fw"></i>Güvenli Çıkış</a></li>
 							</ul>
 						</li>
@@ -77,7 +77,7 @@
 							<th>Ürün Adı</th>
 							<th>Açıklaması</th>
 							<th>Ürün Fiyatı</th>
-							<th></th>
+							<th><a th:href="@{/musteri/sepetibosalt}" href="clear" class="btn btn-sm btn-warning">Sepeti Boşalt</a></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -89,7 +89,7 @@
 							</td>
 							<td class="col-sm-2"><strong th:text="${s.urunAdi}"></strong></td>
 							<td class="col-sm-1"><strong th:text="${s.aciklama}"></strong></td>
-							<td class="col-sm-1"><strong th:text="${s.fiyat}"></strong></td>
+							<td class="col-sm-1"><strong  class="fiyat" th:text="${s.fiyat}"></strong></td>
 							<td class="col-sm-1">
 								<a th:href="@{/musteri/urunsil/}+${y.index}" type="submit" class="btn btn-danger">
 									<span class="glyphicon glyphicon-remove"></span>Ürünü Sil
@@ -100,9 +100,11 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td><h3><b style="color: blue;">Toplam Tutar</b></h3></td>
+							<td>
+								<h3><b style="color: blue;">Toplam Tutar</b></h3>
+							</td>
 							<td class="text-right"><h3>
-									<strong th:text="${0} + 'TL'"></strong>
+									<strong class="toplamFiyat"></strong>
 								</h3>
 							</td>
 						</tr>
@@ -110,8 +112,10 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td><a href="index" class="btn btn-default">
-								<i class="glyphicon glyphicon-shopping-cart"></i>Alış verişe devam et</a></td>
+							<td>
+								<a href="index" class="btn btn-default">
+								<i class="glyphicon glyphicon-shopping-cart"></i>Alış verişe devam et</a>
+							</td>
 							<td><a href="#" data-toggle="modal" data-target="#SiparisVer" class="btn btn-success">Siparişi Tamamla 
 									<i class="glyphicon glyphicon-play" aria-hidden="true"></i>
 								</a>

@@ -3,6 +3,7 @@ package com.kbhkn.eticaret.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Cascade;
 
 
 @Entity
@@ -47,7 +50,7 @@ public class Siparis implements Serializable {
 	@JoinColumn(name="KargoID", nullable=false)
 	private Kargo kargo;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER , cascade = CascadeType.ALL)
 	@JoinColumn(name="MusteriID", nullable=false)
 	private Musteri musteri;
 	

@@ -1,9 +1,11 @@
 package com.kbhkn.eticaret.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kbhkn.eticaret.model.Admin;
 import com.kbhkn.eticaret.service.AdminService;
+import com.kbhkn.eticaret.service.SiparisService;
 import com.kbhkn.eticaret.util.IPGetir;
 
 @Controller
@@ -30,6 +33,9 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private SiparisService siparisService;
 
 	@RequestMapping(value = {"/index", "/"}, method = RequestMethod.GET)
 	public String listAllSiparis(HttpSession session, ModelMap model) {
@@ -66,7 +72,22 @@ public class AdminController {
 		return "redirect:/admin/login";
 	}
 	
+	@RequestMapping(value="/getAjaxSiparisSayisi", method = RequestMethod.GET)
+	public void getAjaxSiparisSayisi(HttpServletResponse response){
+		try {
+			int siparisSayisi = siparisService.getSiparisCount();
+			response.getWriter().print(String.valueOf(siparisSayisi));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
 	}
+
+	public void setSiparisService(SiparisService siparisService) {
+		this.siparisService = siparisService;
+	}
 }
+

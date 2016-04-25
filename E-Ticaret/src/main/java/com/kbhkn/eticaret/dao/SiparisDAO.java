@@ -12,6 +12,8 @@ public interface SiparisDAO {
 	public void updateSiparis(Siparis siparis);
 
 	public void deleteSiparis(Integer siparisId);
+	
+	public int getSiparisCount();
 
 	public List<Siparis> getAllSipariss();
 }

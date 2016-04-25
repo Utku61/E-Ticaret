@@ -2,6 +2,7 @@ package com.kbhkn.eticaret.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,12 @@ public class SiparisDaoImpl implements SiparisDAO {
 
 	@Override
 	public void updateSiparis(Siparis siparis) {
-		getSession().update(siparis);
+		Query query = getSession().createQuery("UPDATE FROM Siparis set KargoID = :kargoID ,SiparisDurumID = :siparisDurumID, TeslimTarihi = :teslimTarihi WHERE SiparisID = :siparisID");
+		query.setParameter("kargoID", siparis.getKargo().getKargoID());
+		query.setParameter("siparisDurumID", siparis.getSiparisDurum().getSiparisDurumID());
+		query.setParameter("teslimTarihi", siparis.getTeslimTarihi());
+		query.setParameter("siparisID", siparis.getSiparisID());
+		query.executeUpdate();
 	}
 
 	@Override
@@ -40,6 +46,11 @@ public class SiparisDaoImpl implements SiparisDAO {
 		Siparis siparis = getSiparisById(siparisId);
 		if(siparis != null)
 			getSession().delete(siparis);
+	}
+	
+	public int getSiparisCount(){
+		Query query = getSession().createQuery("select count(s) from Siparis s where SiparisDurumID = 3");
+		return ((Long)query.uniqueResult()).intValue();
 	}
 
 	@SuppressWarnings("unchecked")
