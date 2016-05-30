@@ -61,6 +61,10 @@ public class UrunController {
 	public String addUrun(@RequestParam("file") MultipartFile file, @ModelAttribute("urun") @Valid Urun urun, BindingResult result, ModelMap model, HttpServletRequest req) {
 		if (result.hasErrors() || file.isEmpty()) {
 			logger.info("Hatalı ürün eklemesi yapıldı.");
+			model.addAttribute("allAltKategoris", kategoriService.getAllAltKategoris());
+			model.addAttribute("allKategoris", kategoriService.getAllKategoris());
+			model.addAttribute("allUstKategoris", kategoriService.getAllUstKategoris());
+			model.addAttribute("allUruns", urunService.getAllUruns());
 			return "admin/urun";
 		}
 		String resimUzantisi = FilenameUtils.getExtension(file.getOriginalFilename());

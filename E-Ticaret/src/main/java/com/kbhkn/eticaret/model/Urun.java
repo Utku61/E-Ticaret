@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -29,15 +28,12 @@ public class Urun implements Serializable {
 	@Column(name="Aciklama", nullable=false, length=45)
 	private String aciklama;
 
-	@NotNull
 	@Column(name="Fiyat", nullable=false)
 	private double fiyat;
 
-	@NotEmpty
 	@Column(name="Resim", nullable=false)
 	private String resim;
 
-	@NotNull
 	@Column(name="StokMiktar", nullable=false)
 	private int stokMiktar;
 
@@ -103,13 +99,6 @@ public class Urun implements Serializable {
 		this.urunAdi = urunAdi;
 	}
 
-//	public List<Siparis> getSiparis() {
-//		return this.siparis;
-//	}
-//
-//	public void setSiparis(List<Siparis> siparis) {
-//		this.siparis = siparis;
-//	}
 
 	public AltKategori getAltKategori() {
 		return altKategori;

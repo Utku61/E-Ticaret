@@ -38,6 +38,7 @@ public class SiparisDurumController {
 	public String addSiparisDurum(@Valid SiparisDurum siparisDurum, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			logger.info("Hatalı sipariş durumu eklemesi yapıldı.");
+			model.addAttribute("allSiparisDurums", siparisDurumService.getAllSiparisDurums());
 			return "admin/siparisdurum";
 		}
 

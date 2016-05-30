@@ -38,6 +38,7 @@ public class SehirController {
 	public String addSehir(@Valid Sehir sehir, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {
 			logger.info("Hatalı şehir eklemesi yapıldı.");
+			model.addAttribute("allSehirs", sehirService.getAllSehirs());
 			return "admin/sehir";
 		}
 

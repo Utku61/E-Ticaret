@@ -29,7 +29,8 @@
 	<bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
 		<property name="additionalDialects">
 			<set>
-				<bean class="org.thymeleaf.extras.java8time.dialect.Java8TimeDialect"></bean>
+				<bean class="org.thymeleaf.extras.java8time.dialect.Java8TimeDialect"/>
+				<bean class="nz.net.ultraq.thymeleaf.LayoutDialect"/>
 			</set>
 		</property>
         <property name="templateResolver" ref="templateResolver" />

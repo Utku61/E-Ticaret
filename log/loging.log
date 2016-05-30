@@ -1,0 +1,6 @@
+2016-05-30 15:38:39,641 WARN com.mchange.v2.c3p0.management.ActiveManagementCoordinator:68 [ContainerBackgroundProcessor[StandardEngine[Catalina]]] A C3P0Registry mbean is already registered. This probably means that an application using c3p0 was undeployed, but not all PooledDataSources were closed prior to undeployment. This may lead to resource leaks over time. Please take care to close all PooledDataSources.
+2016-05-30 15:38:43,194 INFO com.kbhkn.eticaret.controller.SiparisController:40 [tomcat-http--27] Hatalı sipariş durumu eklemesi yapıldı.
+2016-05-30 15:38:43,767 INFO com.kbhkn.eticaret.controller.SiparisController:33 [tomcat-http--63] Sipariş Durumları listelendi.
+2016-05-30 15:38:45,271 INFO com.kbhkn.eticaret.controller.SiparisController:40 [tomcat-http--63] Hatalı sipariş durumu eklemesi yapıldı.
+2016-05-30 15:38:46,892 INFO com.kbhkn.eticaret.controller.UrunController:56 [tomcat-http--68] Ürünler listelendi.
+2016-05-30 15:38:48,576 INFO com.kbhkn.eticaret.controller.UrunController:63 [tomcat-http--34] Hatalı ürün eklemesi yapıldı.

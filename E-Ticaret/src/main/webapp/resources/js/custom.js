@@ -2,13 +2,11 @@ $(document).ready(function() {
 	$(".bolum-select").selectpicker();
 	$(".fakulte-select").selectpicker();
 	$(".yerlesimTuru").selectpicker();
+	
 	var adres = window.location.pathname;
 	var controllerAdres = "";
-	if(adres == "/eticaret/admin/" || adres == "/eticaret/admin/index"){
-		controllerAdres = "getAjaxSiparisSayisi";
-	}else{
-		controllerAdres = "../getAjaxSiparisSayisi";
-	}
+	
+	controllerAdres =  (adres == "/eticaret/admin/" || adres == "/eticaret/admin/index") ? "getAjaxSiparisSayisi" : "../getAjaxSiparisSayisi";
 	
 	window.setInterval(function() {
 		$.ajax({

@@ -4,12 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -45,10 +42,6 @@ public class Admin implements Serializable {
 	
 	@Column(name = "TCNO", nullable = false, length = 11)
 	private String tcno;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "yetkiNo")
-	private Yetki yetki;
 
 	public Admin() {
 	}
@@ -101,17 +94,10 @@ public class Admin implements Serializable {
 		this.tcno = tcno;
 	}
 
-	public Yetki getYetki() {
-		return this.yetki;
-	}
-
-	public void setYetki(Yetki yetki) {
-		this.yetki = yetki;
-	}
 
 	@Override
 	public String toString() {
 		return "Admin [adminID=" + adminID + ", ad=" + ad + ", eposta=" + eposta + ", parola=" + parola + ", soyad="
-				+ soyad + ", tcno=" + tcno + ", yetki=" + yetki.toString() + "]";
+				+ soyad + ", tcno=" + tcno +  "]";
 	}
 }
