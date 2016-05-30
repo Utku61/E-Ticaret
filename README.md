@@ -7,7 +7,7 @@
 
 #### Frontend Teknolojileri
 
-* Thymeleaf
+* Thymeleaf, Thymeleaf Layout
 * Ajax, Jquery
 
 #### Araçlar
